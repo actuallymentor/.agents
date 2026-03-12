@@ -1,0 +1,41 @@
+# ignore all by default
+*
+
+# Caches and transient data
+cache/
+paste-cache/
+stats-cache.json
+statsig/
+
+# Session and history data
+history.jsonl
+file-history/
+session-env/
+shell-snapshots/
+projects/
+
+# Debug and telemetry
+debug/
+telemetry/
+
+# IDE integration state
+ide/
+
+# Tasks and todos (session-specific)
+tasks/
+todos/
+
+# Plans (session-generated)
+plans/
+
+# Plugins (contain nested repos)
+plugins/
+
+# Downloads
+downloads/
+
+# Auto memory (per-project, regenerated)
+memory/
+
+# Local claude configs
+.claude/
