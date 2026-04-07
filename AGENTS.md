@@ -19,7 +19,7 @@ Write code that breathes. Think Ruby-like elegance meets modern js.
 
 ## Persistent Memory
 
-In the project root, check for a `./.notes/` directory, you MUST create it first thing if it does not exist (use `mkdir -p ./.notes`). Here you can store notes to self or other LLMs, notes persist across runs. Write at will, read `./.notes/MEMORY.md` on every run.
+In the project root, check for a `./.notes/` directory, you MUST create it first thing if it does not exist (use `mkdir -p ./.notes`). Here you can store notes to self or other LLMs, notes persist across runs. Write at will, read `./.notes/MEMORY.md` on every run. Check for any `**/.notes/` folders in subdirectories and read their `MEMORY.md` when working in those subdirectories.
 
 Do NOT use these files for implementation details, trust that a future LLM will analyse the codebase itself.
 

@@ -7,8 +7,6 @@ description: Trigger when the user wants to review recent work for intent alignm
 
 Review recent work through three lenses: intent alignment, elegance, and bug detection. When actionable findings exist, this skill enters plan mode to produce a structured assessment with suggestions the user can cherry-pick. When there are no findings, it reports a clean result and stops without entering plan mode.
 
-Skill boundary: if this skill is run in the context of an autonomous run, where the user explicitly asked for you to work autonomously, you should NOT ask the user for confirmation on which findings to address. Instead, you should proceed to apply all findings without asking for confirmation. In a non-autonomous context, always ask the user which findings to address before taking any action.
-
 ## YOLO Mode
 
 Before starting, check the environment variable `AGENT_AUTONOMY_MODE` via Bash (e.g. `echo $AGENT_AUTONOMY_MODE`) — compare case-insensitively. If it is set to `yolo`, this skill operates fully autonomously:
@@ -18,7 +16,18 @@ Before starting, check the environment variable `AGENT_AUTONOMY_MODE` via Bash (
 - **Apply all findings automatically** - After the assessment, proceed directly to applying all actionable suggestions without waiting for user input
 - **Still respect Early Exit rules** - If there are no changes or no findings, stop as normal
 
-## Step 1: Gather Recent Work
+## Step 1: Gather PR Comments
+
+Always first use the Skill tool to run the `/pr-comments` skill to pull in review comments from the current PR. Even if there were no code changes, the PR might have new comments.
+
+Then triage the results — for each comment, decide:
+
+- **Worth addressing** - The comment points to a real issue, a valid style concern, or a meaningful improvement
+- **Not worth addressing** - The comment is outdated, already resolved, nitpicky beyond reason, or conflicts with the project's conventions
+
+Keep only the "worth addressing" comments — these are collected here and folded into Step 4's three-lens assessment. When a comment aligns with one of the lenses (intent, elegance, bugs), include it under that lens. If no PR exists or there are no comments, skip this step silently.
+
+## Step 2: Gather Recent Work
 
 Collect the full picture of what changed recently:
 
@@ -29,15 +38,6 @@ Collect the full picture of what changed recently:
 5. **Commit diffs** - For the last 3-5 commits on the current branch, run `git show --stat <hash>` and `git show <hash>` to understand the full scope of recent work
 
 If there are no uncommitted changes AND no recent commits, inform the user there's nothing to reflect on and **stop immediately**. Do not proceed to any further steps.
-
-## Step 2: Gather PR Comments
-
-Run the `pr-comments` skill to pull in review comments from the current PR. Then triage the results — for each comment, decide:
-
-- **Worth addressing** - The comment points to a real issue, a valid style concern, or a meaningful improvement
-- **Not worth addressing** - The comment is outdated, already resolved, nitpicky beyond reason, or conflicts with the project's conventions
-
-Keep only the "worth addressing" comments — these are collected here and folded into Step 4's three-lens assessment. When a comment aligns with one of the lenses (intent, elegance, bugs), include it under that lens. If no PR exists or there are no comments, skip this step silently.
 
 ## Step 3: Infer and Confirm Intent
 
@@ -79,7 +79,7 @@ Reference the project's AGENTS.md (or CLAUDE.md) style preferences and consider:
 - **Naming** - Do variable and function names communicate intent?
 - **Structure** - Is the code organized in a way that makes the logic obvious?
 
-This is not about nitpicking style (that's what the `style` skill is for). This is about architectural elegance and approach-level decisions.
+This is about architectural elegance and approach-level decisions.
 
 ### Q3: Did the changes introduce any bugs?
 
