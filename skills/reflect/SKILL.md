@@ -18,7 +18,7 @@ Before starting, check the environment variable `AGENT_AUTONOMY_MODE` via Bash (
 
 ## Step 1: Gather PR Comments
 
-Always first use the Skill tool to run the `/pr-comments` skill to pull in review comments from the current PR. Even if there were no code changes, the PR might have new comments.
+Always first use the `gh` cli to check for open pull requests this branch has and grab the comments on it. Even if there were no code changes, the PR might have new comments.
 
 Then triage the results — for each comment, decide:
 
