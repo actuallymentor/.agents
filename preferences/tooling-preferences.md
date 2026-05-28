@@ -24,6 +24,7 @@ curl -o- https://raw.githubusercontent.com/actuallymentor/airier/main/quickstart
 - Routing is done with `react-router` BrowserRouter
 - State is put in the URL where possible using the `use-query-params` npm package
 - State that is used in multiple places at once uses `zustand`
+- Webapps must be progressive web apps that work offline, use `vite-plugin-pwa`. Use the `onNeedRefresh` event to trigger a persistent toast telling the user to reload the page
 - Components must follow a structure inspired by Atomic Design where they are split into:
   - Atoms: stateless components
   - Molecules: stateful components (may use Atoms)

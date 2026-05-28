@@ -65,6 +65,7 @@ Check for the existence of the `~/.agents/preferences` directory. If it exists, 
 | `~/.agents/preferences/js-style.md` | When working with Javascript, read and apply relevant style preferences |
 | `~/.agents/preferences/tooling-preferences.md` | When starting a project or deciding on libraries/tools, read and apply relevant tooling preferences |
 | `~/.agents/preferences/design-preferences.md` | When working on UI/UX, read and apply relevant design preferences |
+| `~/.agents/preferences/testing-preferences.md` | When writing or running tests, read and apply relevant testing preferences |
 
 ==============================
 
