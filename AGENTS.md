@@ -51,6 +51,7 @@ Boundaries:
 5. **Commit** — if `echo $AGENT_AUTONOMY_MODE` is `yolo`, commit with a gitmoji message; otherwise suggest a commit command with message and ask for confirmation. Common [gitmoji](https://gitmoji.dev/): `✨ feature`, `🐛 bug`, `🔥 removal`, `📚 docs`, `♻️ refactor`, `🎨 style`, `✅ tests`
 6. **Cleanup** - check if your work has left orphanes temporary or nonfunctional files. If so, delete them.
 7. **TL;DR:** - write a summary line in the format: I changed xyz in commits aaa, bbb, ccc.
+8. **Phone a friend** — after committing, offer to run the `phoneafriend` skill to get another LLM's perspective on your work. In YOLO mode, automatically run `phoneafriend` after every commit.
 
 > **Skills** are reusable workflows invoked by name. The invocation syntax varies by tool — Claude Code uses `/skill_name`, Codex uses `$skill_name`, and other tools may differ. When this document says "run the `reflect` skill", use whatever invocation method your tool provides.
 
