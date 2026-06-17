@@ -43,6 +43,8 @@ Boundaries:
 
 **Every time you finish making edits, follow this checklist in order. Do not skip steps. Do not commit before completing steps 1-4.**
 
+Note: if you only changed `.notes/` files, you skip the reflect and style steps.
+
 0. **Handle persistent memory** — write relevant notes to `./.notes/` and update `MEMORY.md` with references to new notes and when to load them
 1. **Run the `reflect` skill** — review your changes for intent alignment, elegance, and bugs
 2. **Run the `style` skill** — review your changes for code style alignment

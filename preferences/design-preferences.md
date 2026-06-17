@@ -4,8 +4,11 @@
 
 **Brand defaults:**
 - Accent: `#7ec0d0`
+- Body background: `#fafbfc`
 - Heading font: `"Montserrat Variable", system-ui, -apple-system, "Segoe UI", sans-serif` (500 font weight)
 - Body font: `"Nunito Variable", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji"`
+
+Note: the primary font must be made available through Google Fonts.
 
 ---
 
@@ -28,6 +31,7 @@
 - Never use blue for fine detail or small text — reserve for fills and large shapes.
 - Never encode information in color alone — always add shape, pattern, icon, or label. Especially avoid red-vs-green without a secondary cue (~8% of males are color-blind).
 - Red/warm = arousal, blue/cool = calm. Stop there — broader color psychology is weakly supported.
+- Surfaces that are a solid color must 1) not have a border of a different color type and 2) idally have white text, unless that makes the text impossible to read
 
 ### Typography
 - Serif vs sans-serif: no measurable legibility difference. Prioritize large x-height, clear confusable-character differentiation (1/I/l, 0/O), consistent stroke width.
