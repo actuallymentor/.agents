@@ -29,6 +29,7 @@ Do NOT use these files for implementation details, trust that a future LLM will 
 | `./.notes/GOTCHAS.md` | Project-specific pitfalls/footguns that you want your future self to keep in mind |
 | `./.notes/RESEARCH.md` | Notes about research you have done, such as summaries of relevant documentation or explanations of concepts you had to look up |
 | `./.notes/TIMELINE.md` | A timestamp list of major decisions, changes, or events that occurred during your work, to help you keep track of the sequence of events and the rationale behind them |
+| `./.notes/HUMAN.md` | Document decisions or questions that you think a human needs to review. Use this when you are in doubt, or when you make an executive decision that is significant |
 
 Boundaries:
 
@@ -53,7 +54,7 @@ Note: if you only changed `.notes/` files, you skip the reflect and style steps.
 5. **Commit** — if `echo $AGENT_AUTONOMY_MODE` is `yolo`, commit with a gitmoji message; otherwise suggest a commit command with message and ask for confirmation. Common [gitmoji](https://gitmoji.dev/): `✨ feature`, `🐛 bug`, `🔥 removal`, `📚 docs`, `♻️ refactor`, `🎨 style`, `✅ tests`
 6. **Cleanup** - check if your work has left orphanes temporary or nonfunctional files. If so, delete them.
 7. **TL;DR:** - write a summary line in the format: I changed xyz in commits aaa, bbb, ccc.
-8. **Phone a friend** — after committing, offer to run the `phoneafriend` skill to get another LLM's perspective on your work. In YOLO mode, automatically run `phoneafriend` after every commit.
+8. **Phone a friend** — after committing, offer to run the `phoneafriend` skill to get another LLM's perspective on your work. In YOLO mode, automatically run `phoneafriend` after every commit. Do not run `phoneafriend` if you are working only on a `.notes/` file.
 
 > **Skills** are reusable workflows invoked by name. The invocation syntax varies by tool — Claude Code uses `/skill_name`, Codex uses `$skill_name`, and other tools may differ. When this document says "run the `reflect` skill", use whatever invocation method your tool provides.
 
