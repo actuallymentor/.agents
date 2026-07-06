@@ -1,5 +1,7 @@
 /clear
 ===
+%initial_prompt%
+===
 Read the SPECIFICATION.md file in this project. Then make a plan to analyse the application code to make sure that the application has all features fully and properly implemented. Add missing functionality. Fix broken functionality.
 ===
 Make a plan to analyse the test suite if there is one. Make sure essential user paths are covered. Add missing tests. Then run the test suite, then fix broken tests.
