@@ -51,6 +51,8 @@ codex --model gpt-5.5 -c 'model_reasoning_effort="xhigh"' exec "Review the follo
 # You will read the response
 ```
 
+**Note: if the other agent has hit it's session limit, start the review using the same coding agent, but outside this session. You must run a `agent --model etc` command to start a new external session.**
+
 ## Step 4: Assess what is worth addressing
 
 Look at the report from the other LLM. Judge what is worth addressing based on the conversation you have been having. Ignore nitpicks and edge cases. We are looking to prevent bugs, fix glaring oversights, or add highly relevant improvements.
