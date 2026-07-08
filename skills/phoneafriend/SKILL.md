@@ -28,16 +28,18 @@ Look at this conversation, then make a list of the commits of things that you ju
 
 To do this, we will call the other LLM through their CLI. You must first inject the base prompt that you were given at the start of this conversation, and you will then ask for a review. Set a generous timeout, reviews can take 30 minutes and that is allowed to happen. Do not kill coding agents unless they explicitly hang or exteed 30 minutes in duration without output. Example if you are codex and asking claude:
 
-Always use the strongest available model and maximum effort when calling the other LLM:
+Determine the available model for this level of review when calling the other LLM, example for a very complex problem:
 
-- When asking Claude, pass `--model best --effort max`.
+- When asking Claude, pass `--model best --effort high`.
 - When asking Codex, pass `--model gpt-5.5 -c 'model_reasoning_effort="xhigh"'`.
 
+Note: codex is cheap, claude is expensive. When reviewing with codex, err on the side of high effort (xhigh is fine), when reviewing with claude be more conservative (`high` is the maximum).
+
 ```bash
-claude --model best --effort max -p "[base prompt]"
+claude --model best --effort high -p "[base prompt]"
 # You wait for the response
 
-claude --model best --effort max -p --continue "Review the following commits for bugs and improvements, do not change anything, just report back: [list of commit hashes]"
+claude --model best --effort high -p --continue "Review the following commits for bugs and improvements, do not change anything, just report back: [list of commit hashes]"
 # You will read the response
 ```
 
