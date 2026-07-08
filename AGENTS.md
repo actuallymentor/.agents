@@ -56,7 +56,7 @@ Note: if you only changed `.notes/` files, you skip the reflect and style steps.
 6. **Cleanup** - check if your work has left orphanes temporary or nonfunctional files. If so, delete them.
 7. **TL;DR:** - write a summary line in the format: I changed xyz in commits aaa, bbb, ccc.
 8. **Phone a friend** — after committing, offer to run the `phoneafriend` skill to get another LLM's perspective on your work. In YOLO mode, automatically run `phoneafriend` after every commit. Do not run `phoneafriend` if you are working only on a `.notes/` file.
-9. Run the `updatehuman` skill when in YOLO mode. Otherwise skip.
+9. **Run the `updatehuman` skill** - Send a push notification to the human user with a summary of your work.
 
 > **Skills** are reusable workflows invoked by name. The invocation syntax varies by tool — Claude Code uses `/skill_name`, Codex uses `$skill_name`, and other tools may differ. When this document says "run the `reflect` skill", use whatever invocation method your tool provides.
 
