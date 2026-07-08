@@ -24,8 +24,8 @@ Send a notification to the humam
 You will send a pushover notification using the following command:
 
 ```bash
-# Where %AGENT% is the name of the agent, like Codex, Claude, etc
-TITLE="Babysitter update from $AGENT_NAME"
+# Where orgname/reponame is based on the git repo data, use directory name if git data is missing
+TITLE="Babysitter orgname/reponame update"
 
 # Where $SUMMARY is a 2-4 sentence summary of the session activity, $COMMITS is a list of commits made in this session (with truncated message), and $HUMAN_INPUT is a list of items that human input is useful for. Note the $'' newline compatible syntax
 MESSAGE=$'Summary of activity: $SUMMARY\n\nCommits made:\n$COMMITS\n\nItems for human input:\n$HUMAN_INPUT'
