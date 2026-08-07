@@ -26,7 +26,7 @@ curl -o- https://raw.githubusercontent.com/actuallymentor/airier/main/quickstart
 - State that is used in multiple places at once uses `zustand`
 - Webapps must be progressive web apps that work offline and auto-update, use `vite-plugin-pwa`. Use the `onNeedRefresh` event to trigger a persistent badge telling the user to reload the page
   - For PWAs add a floating "Install App" pill on the bottom left. When clicked it uses the PWA "add to homescreen" functionality to install the PWA to the device. This pill is hidden if the app is running in PWA mode.
-  - PWA's must have both a robust and backwards comaptible update system as well as a "Update app" button in the menu that forcefully deletes the service worker and reloads the page.
+  - PWA's must have both a robust and backwards comaptible update system as well as a "Update app" button in the menu that forcefully deletes the service worker and reloads the page. You MUST make sure the update mechanism is robust and backwards compatible, a manual clear cache & hard refresh should never be needed
 - Components must follow a structure inspired by Atomic Design where they are split into:
   - Atoms: stateless components
   - Molecules: stateful components (may use Atoms)
