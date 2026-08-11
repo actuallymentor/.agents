@@ -26,7 +26,14 @@ Look at this conversation, then make a list of the commits of things that you ju
 
 ## Step 3: Ask the other LLM for a review
 
-To do this, we will call the other LLM through their CLI. You must first inject the base prompt that you were given at the start of this conversation, and you will then ask for a review. Set a generous timeout, reviews can take 30 minutes and that is allowed to happen. Do not kill coding agents unless they explicitly hang or exteed 30 minutes in duration without output. Example if you are codex and asking claude:
+To do this, we will call the other LLM through their CLI. You must first inject the base prompt that you were given at the start of this conversation, and you will then ask for a review. Set a generous timeout, reviews can take 30 minutes and that is allowed to happen. Do not kill coding agents unless they explicitly hang or exteed 30 minutes in duration without output.
+
+Make an estimation what effort level is needed for this review, valid values are:
+
+- claude: `low`, `medium`, `high`, `xhigh`, `max`, `ultracode`
+- codex: `low`, `medium`, `high`, `xhigh`, `max`
+
+Example if you are codex and asking claude:
 
 Determine the available model for this level of review when calling the other LLM, example for a very complex problem:
 
