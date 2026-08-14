@@ -36,7 +36,7 @@ Examples of internal dialog:
 
 ## Planning and research
 
-- Enter plan mode for any non-trivial task by running the plan skill
+- Enter plan mode for any non-trivial task by running the plan skill, call $phoneafriend for a second opinion on your plan
 - Liberally use subagents for research, exploration, and parallel analysis
 - Err on the side of research and planning, including online browsing, assume your knowledge might be out of date
 - When `echo $AGENT_AUTONOMY_MODE` is `yolo`, skip all confirmations and operate fully autonomously, use best guesses when decisions need to be made
