@@ -5,7 +5,7 @@ description: Ask another LLM for a review
 
 # Phone a friend
 
-You will ask another LLM for a review of the the work you just finished. They will be instructed to change nothing, and just report back to you. You will then evaluate which of their feedback is worth addressing.
+You will ask another LLM for a review of the the work you just finished, or are about to do. They will be instructed to change nothing, and just report back to you. You will then evaluate which of their feedback is worth addressing.
 
 ## YOLO Mode
 
@@ -20,9 +20,11 @@ Before starting, check the environment variable `AGENT_AUTONOMY_MODE` via Bash (
 
 If you are codex, ask claude. If you are claude, ask codex. If you are anyone else, ask claude.
 
-## Step 2: Gather recent commits
+## Step 2: Gather target work for review
 
-Look at this conversation, then make a list of the commits of things that you just changed. We do not look back in history. Only list commits that you made in this conversation, and after any potential previous phoneafriend sessions. If there are no commits, stop immediately and say "I have no recent changes to ask about".
+Option 1, you did work that needs review: Look at this conversation, then make a list of the commits of things that you just changed, or the uncommitted work you made. We do not look back in history. Only list commits that you made in this conversation, and after any potential previous phoneafriend sessions. If there are no commits or uncommitted work, stop immediately and say "I have no recent changes to ask about".
+
+Option 2: you made a plan and need a second opinion: Take the plan you just made, write it to PLAN.md (add a timestamp if one already exists), and then ask the other LLM to review it.
 
 ## Step 3: Ask the other LLM for a review
 
