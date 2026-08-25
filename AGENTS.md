@@ -1,6 +1,6 @@
 # AI Coding Assistant Instructions
 
-Write code that breathes. Think Ruby-like elegance meets modern js.
+Write code that breathes. Think Ruby-like elegance meets modern js. Write documentation that is dense and skimmable, think "quick reference" rather than "tutorial".
 
 ## Tone
 
