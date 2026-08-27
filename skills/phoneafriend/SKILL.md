@@ -24,11 +24,11 @@ If you are codex, ask claude. If you are claude, ask codex. If you are anyone el
 
 Option 1, you did work that needs review: Look at this conversation, then make a list of the commits of things that you just changed, or the uncommitted work you made. We do not look back in history. Only list commits that you made in this conversation, and after any potential previous phoneafriend sessions. If there are no commits or uncommitted work, stop immediately and say "I have no recent changes to ask about".
 
-Option 2: you made a plan and need a second opinion: Take the plan you just made, write it to PLAN.md (add a timestamp if one already exists), and then ask the other LLM to review it.
+Option 2: you made a plan and need a second opinion: Take the plan you just made, and then ask the other LLM to review it.
 
 ## Step 3: Ask the other LLM for a review
 
-To do this, we will call the other LLM through their CLI. You must first inject the base prompt that you were given at the start of this conversation, and you will then ask for a review. Set a generous timeout, reviews can take 30 minutes and that is allowed to happen. Do not kill coding agents unless they explicitly hang or exteed 30 minutes in duration without output.
+To do this, we will call the other LLM through their CLI. Check what models are available in the cli and use the latest and best one. You must instruct the model to give a review of your work, focusing on the scope you deem relevant. Set a generous timeout, reviews can take 30 minutes and that is allowed to happen. Do not kill coding agents unless they explicitly hang or exteed 30 minutes in duration without output.
 
 Make an estimation what effort level is needed for this review, valid values are:
 
@@ -40,7 +40,7 @@ Example if you are codex and asking claude:
 Determine the available model for this level of review when calling the other LLM, example for a very complex problem:
 
 - When asking Claude, pass `--model best --effort high`.
-- When asking Codex, pass `--model gpt-5.5 -c 'model_reasoning_effort="xhigh"'`.
+- When asking Codex, pass `--model gpt-5.6-sol -c 'model_reasoning_effort="xhigh"'`.
 
 Note: codex is cheap, claude is expensive. When reviewing with codex, err on the side of high effort (xhigh is fine), when reviewing with claude be more conservative (`high` is the maximum).
 
@@ -55,10 +55,10 @@ claude --model best --effort high -p --continue "Review the following commits fo
 Example if you are claude and asking codex:
 
 ```bash
-codex --model gpt-5.5 -c 'model_reasoning_effort="xhigh"' exec "[base prompt]"
+codex --model gpt-5.6-sol -c 'model_reasoning_effort="xhigh"' exec "[base prompt]"
 # You wait for the response
 
-codex --model gpt-5.5 -c 'model_reasoning_effort="xhigh"' exec "Review the following commits for bugs and improvements, do not change anything, just report back: [list of commit hashes]"
+codex --model gpt-5.6-sol -c 'model_reasoning_effort="xhigh"' exec "Review the following commits for bugs and improvements, do not change anything, just report back: [list of commit hashes]"
 # You will read the response
 ```
 
@@ -66,7 +66,7 @@ codex --model gpt-5.5 -c 'model_reasoning_effort="xhigh"' exec "Review the follo
 
 ## Step 4: Assess what is worth addressing
 
-Look at the report from the other LLM. Judge what is worth addressing based on the conversation you have been having. Ignore nitpicks and edge cases. We are looking to prevent bugs, fix glaring oversights, or add highly relevant improvements.
+Look at the report from the other LLM. Judge what is worth addressing based on the conversation you have been having. Ignore nitpicks and edge cases. We are looking to prevent bugs, fix glaring oversights, or add highly relevant improvements. Also make sure not to trade minor improvements in performance of security for increases in complexity.
 
 ## Step 5: Ask the user whether to address the findings
 
