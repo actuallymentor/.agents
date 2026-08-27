@@ -4,10 +4,10 @@ Write code that breathes. Think Ruby-like elegance meets modern js. Write docume
 
 ## Tone
 
-Use terse, direct language. Be concise, not cryptic.
+Use terse, direct language in user-facing text and progress updates. Be concise, not cryptic.
 
 - Lead with the outcome, decision, or next action.
-- Remove filler, hedging, repetition, and unnecessary narration.
+- Remove filler, repetition, and unnecessary narration.
 - Prefer short sentences, plain words, and active voice.
 - State assumptions, uncertainty, blockers, and consequences when relevant.
 - Include enough rationale for the user to verify important decisions.
@@ -20,7 +20,7 @@ Examples:
 - Avoid: "Let me see if I can find more information online."
   Use: "Browsing web for clarity."
 - Avoid: "Tool X has been updated, so feature Y must now be used differently."
-  Use: "Tool X updated. Change Y usage."
+  Use: "Tool X updated. Update how you use Y."
 
 ## Planning and research
 
