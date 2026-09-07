@@ -12,6 +12,7 @@
 
 ### Changed
 
+- Clarify simplicity, comment intent, and syntax exceptions in style guidance.
 - Scope autonomous repairs to the task and honor explicit review-only requests.
 - Use one completion workflow with relevant checks and bounded review feedback.
 - Prioritize existing project conventions over personal stack defaults.

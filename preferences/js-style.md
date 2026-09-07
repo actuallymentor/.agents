@@ -1,6 +1,6 @@
 # JavaScript code style preferences
 
-Write code that breathes. Think Ruby-like elegance meets modern js.
+Write code that breathes. Think Ruby-like elegance meets modern JavaScript.
 
 Follow existing project conventions unless the user specifies otherwise. These preferences guide new projects and choices the project has not already made; do not restyle unrelated code or add dependencies just to apply them.
 
@@ -26,9 +26,14 @@ Code should be elegant, not use superfluous characters, and have space to breath
 2. Run the relevant configured check using the project's package manager; inspect its output and exit status. Do not assume lint fixes files.
 3. If formatting is needed, use the configured formatter on task files, inspect its diff, and resolve task-related failures before finishing.
 
-## Always use template literals instead of strings
+## Prefer template literals for string expressions
+
+Use template literals for ordinary JavaScript strings and interpolation. Use quoted literals where syntax requires them, such as static import/export module specifiers and directive prologues (`'use strict'`). Keep JSON strings and plain JSX attribute values quoted; existing project conventions still take priority.
+
 ```js
-// Use literals for regular strings
+import { log } from 'mentie'
+
+// Template literals also work for plain string expressions
 const name = `Ada Lovelace`
 
 // Use templates for string manipulation too
@@ -42,10 +47,13 @@ const [ , username ] = email_string.match( /(.*)@/ )
 const double_user_age = ( { metadata: { age } } ) => age * 2
 ```
 
-## snake_case for Everything
+## Prefer snake_case for names you control
+
+Preserve framework and external API names. React components use PascalCase; hooks retain React's `use` followed by a capital letter convention, such as `useUserProfile`.
+
 ```js
 const timeout_ms = 5_000
-const user_name = 'John'
+const user_name = `John`
 const fetch_user_data = async ( user_id ) => { }
 ```
 
@@ -55,7 +63,7 @@ import { abort_controller } from 'mentie'
 
 // Load the users with a timeout to prevent hanging
 const fetch_options = abort_controller( { timeout_ms: 10_000 } )
-const { uids } = await fetch( 'https://...', fetch_options ).then( res => res.json() )
+const { uids } = await fetch( `https://...`, fetch_options ).then( res => res.json() )
 
 // Parallel fetch resulting data to optimise speed
 const downstream_data = await Promise.all( uids.map( async uid => fetch( `https://...?uid=${ uid }` ) ) )
@@ -91,7 +99,7 @@ const total_age = active_users.reduce( ( sum, { age } ) => sum + age, 0 )
 
 ## JSDoc for Exported Functions
 
-**CRITICAL**: Every exported function MUST have JSDoc. Verify before finishing!
+Document exported functions with JSDoc describing their purpose and contract. Explain meaningful inputs, outputs, and constraints without repeating obvious syntax.
 
 ```js
 /**
@@ -145,7 +153,6 @@ export async function fetch_and_process_users( { user_ids, limit=5 } = {} )  {
     // Annotate users with value based on local conversion so we can show the user the computed values
     const annotated_users = filtered_users.map( ( { score, user } ) => ( { score: score * local_conversion_value, ...user } ) )
 
-    // Return users with annotated data
     return annotated_users
 }
 
@@ -161,7 +168,7 @@ export async function fetch_and_process_users( { user_ids, limit=5 } = {} )  {
 const UserProfile = ( { user_id } ) => { }
 const DataTable = () => { }
 
-// ✅ Everything else is snake_case
+// ✅ Application-owned names use snake_case
 const user_name = `John`
 const fetch_user_data = async ( user_id ) => { }
 ```
