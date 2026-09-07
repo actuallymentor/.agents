@@ -24,7 +24,9 @@ When setting up linting for a new JavaScript project, prefer the `airier` scaffo
 - State that is used in multiple places at once uses `zustand`
 - Webapps must be progressive web apps that work offline and auto-update, use `vite-plugin-pwa`. Use the `onNeedRefresh` event to trigger a persistent badge telling the user to reload the page
   - For PWAs add a floating "Install App" pill on the bottom left. When clicked it uses the PWA "add to homescreen" functionality to install the PWA to the device. This pill is hidden if the app is running in PWA mode.
-  - PWAs must have both a robust and backwards compatible update system as well as an "Update app" button in the menu that unregisters the app's service worker and reloads the page. Verify updates from a previously installed version; a manual clear cache & hard refresh should never be needed
+  - PWAs must have both a robust and backwards compatible update system that auto-updates the app and hot-reloads if it can be done without data loss.
+  - PWAs need a subtle "Update app" button in a settings page/pane unregisters the app's service worker and reloads the page. Verify updates from a previously installed version; a manual clear cache & hard refresh should never be needed
+  - PWAs must show the short commit hash of the current build in a subtle place, either the settings page or the footer.
 - Components must follow a structure inspired by Atomic Design where they are split into:
   - Atoms: stateless components
   - Molecules: stateful components (may use Atoms)

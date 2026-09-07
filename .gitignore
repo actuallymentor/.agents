@@ -58,3 +58,6 @@ memory/
 
 # Local claude configs
 .claude/
+
+# System skilld
+skills/.system/

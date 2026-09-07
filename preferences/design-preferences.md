@@ -23,6 +23,7 @@ For new projects, prefer the listed fonts available through Google Fonts. Follow
 - Use proximity to make grouping clear; place labels closer to their own fields.
 - Use shared boundaries (cards, boxes) to reinforce grouping without contradicting spacing or labels.
 - Use symmetry as default layout; break it deliberately for emphasis.
+- Prefer hamburger menus on mobile. Top menu allowed on desktop.
 
 ### Color
 - Use luminance contrast as well as hue to separate elements.
@@ -41,7 +42,8 @@ For new projects, prefer the listed fonts available through Google Fonts. Follow
 - Spacing preferences vary by reader; avoid claiming one adjustment or typeface benefits everyone with dyslexia.
 - Prefer upright body text; reserve italics for short emphasis.
 - Prefer familiar typefaces such as Helvetica, Arial, Verdana, or Courier when offering reading alternatives.
-- Respect user font and spacing overrides. For reading-focused products, consider in-app controls; WCAG text spacing does not require them.
+- Respect user font and spacing overrides. Make sure there is a setting to + and - the text size.
+- Implement flow-text resizing so text is comfortable on multiple screen-sizes.
 
 ---
 
