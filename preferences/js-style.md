@@ -1,10 +1,12 @@
-# Javascript code style preferences
+# JavaScript code style preferences
 
 Write code that breathes. Think Ruby-like elegance meets modern js.
 
+Follow existing project conventions unless the user specifies otherwise. These preferences guide new projects and choices the project has not already made; do not restyle unrelated code or add dependencies just to apply them.
+
 ## Logging preferences
 
-Instead of `console.*` use the `log` utility from the `mentie` package. Use:
+Keep the project's existing logger. When choosing a logger, prefer the `log` utility from the `mentie` package over `console.*`. Use:
 
 - `log.error()` for errors: issues that break functionality
 - `log.warn()` for warnings: issues that do not break functionality but are concerning or non-ideal
@@ -14,20 +16,20 @@ Instead of `console.*` use the `log` utility from the `mentie` package. Use:
 
 ## Mentie helpers
 
-Run `node -e "console.log(Object.keys(require('mentie')))"` to see all available helpers in the `mentie` package. Use them to keep your code elegant and concise. For example, use `abort_controller` for fetch timeouts, `cache` for memoization, etc.
+When `mentie` is already used or selected for the task, inspect its installed exports and source to find available helpers. Use them to keep your code elegant and concise. For example, use `abort_controller` for fetch timeouts, `cache` for memoization, etc.
 
 ## Syntax preferences
 
-Code should be elegant, not use superfluous characters, and have space to breathe. For example: do not use semicolons, add space in brackets. The linter will show you syntax preferences, to that end with every change learn the styling by:
+Code should be elegant, not use superfluous characters, and have space to breathe. For example: do not use semicolons, add space in brackets. Learn and follow the project's actual lint and formatting configuration:
 
-1. save your changes and look at the syntax
-2. run `npm run lint` in the directory with `package.json` and ignore the command output
-3. look at how the linter changed the style, and mimic it in future responses.
+1. Inspect nearby code and configured lint/format scripts before editing.
+2. Run the relevant configured check using the project's package manager; inspect its output and exit status. Do not assume lint fixes files.
+3. If formatting is needed, use the configured formatter on task files, inspect its diff, and resolve task-related failures before finishing.
 
 ## Always use template literals instead of strings
 ```js
 // Use literals for regular strings
-const name = `Ada Localace`
+const name = `Ada Lovelace`
 
 // Use templates for string manipulation too
 const annotated_name = `${ name } ${ Math.random() }`
@@ -84,7 +86,7 @@ Prefer `.map()`, `.filter()`, `.reduce()`, `.find()`, `.some()`, `.every()` over
 ```js
 const active_users = users.filter( u => u.active )
 const user_names = active_users.map( u => u.name )
-const total_age = user_names.reduce( ( sum, age ) => sum + age, 0 )
+const total_age = active_users.reduce( ( sum, { age } ) => sum + age, 0 )
 ```
 
 ## JSDoc for Exported Functions
@@ -179,22 +181,48 @@ const Header = styled.aside`
 `
 
 // Use JSX comments to separate sections
+/**
+ * Displays the requested user's profile and exposes its save action.
+ * @param {Object} props
+ * @param {string} props.user_id - User to load
+ * @param {Function} props.on_update - Receives the loaded user when saved
+ * @returns {JSX.Element} Profile, loading state, or error
+ */
 export function UserProfile( { user_id, on_update } ) {
 
     // Hooks at the top
-    const [ user_data, set_user_data ] = useState( null )
-    const [ is_loading, set_is_loading ] = useState( false )
+    const [ profile, set_profile ] = useState( null )
 
     // Effects after hooks
     useEffect( () => {
-        fetch_user_data( user_id ).then( set_user_data )
+
+        // Ignore results from an old request or an unmounted component
+        let is_current = true
+        set_profile( null )
+
+        const load_user = async () => {
+            try {
+                const user_data = await fetch_user_data( user_id )
+                if( is_current ) set_profile( { user_id, user_data } )
+            } catch( error ) {
+                if( is_current ) set_profile( { user_id, error } )
+            }
+        }
+
+        load_user()
+        return () => { is_current = false }
+
     }, [ user_id ] )
 
     // Event handlers
-    const update_user = () => on_update( user_data )
+    const update_user = () => on_update( profile.user_data )
 
     // Conditional rendering
-    if( is_loading ) return <LoadingSpinner />
+    if( !profile || profile.user_id !== user_id ) return <LoadingSpinner />
+    if( profile.error ) return <p role="alert">Unable to load this profile.</p>
+    if( !profile.user_data ) return <p>User not found.</p>
+
+    const { user_data } = profile
 
     // Do not add () around returned jsx.
     return <>

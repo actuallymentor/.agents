@@ -1,6 +1,6 @@
 # Sensory Design Prescriptions
 
-> Actionable rules for interfaces that work with the human nervous system. Every rule is an engineering constraint, not opinion.
+> Design preferences and practical starting points. Follow the existing project's design system unless the user specifies otherwise. Accessibility requirements take precedence over aesthetic choices; validate heuristics with the actual interface and its users.
 
 **Brand defaults:**
 - Accent: `#7ec0d0`
@@ -8,40 +8,40 @@
 - Heading font: `"Montserrat Variable", system-ui, -apple-system, "Segoe UI", sans-serif` (500 font weight)
 - Body font: `"Nunito Variable", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji"`
 
-Note: the primary font must be made available through Google Fonts.
+For new projects, prefer the listed fonts available through Google Fonts. Follow existing font delivery and privacy conventions.
 
 ---
 
 ## Visual Design
 
 ### Edges & Attention
-- Give UI elements sharp, well-defined boundaries — blurred/gradient-only edges slow recognition.
-- Use **one** pre-attentive channel per priority level (color, size, motion, or orientation). Combining channels defeats pop-out.
-- Place critical messages within ~2.5 cm of the user's focus point. Use motion/color flash for peripheral alerts — peripheral vision cannot read text.
+- Prefer sharp, well-defined UI boundaries.
+- Use a clear primary attention cue per priority level (color, size, motion, or orientation); add redundant cues when they improve accessibility.
+- Place critical messages near the relevant control or content. Avoid flashing alerts and respect reduced-motion preferences.
 
 ### Grouping & Layout
-- Proximity is the strongest grouping signal — a label equidistant between two fields belongs to neither.
-- Enclosing elements in a shared boundary (card, box) overrides all other grouping, including proximity.
+- Use proximity to make grouping clear; place labels closer to their own fields.
+- Use shared boundaries (cards, boxes) to reinforce grouping without contradicting spacing or labels.
 - Use symmetry as default layout; break it deliberately for emphasis.
 
 ### Color
-- Separate elements by **brightness**, not just hue. Two hues at equal brightness blur together.
+- Use luminance contrast as well as hue to separate elements.
 - Minimum contrast ratios: **4.5:1** body text, **3:1** large text (18pt+ / 14pt+ bold), **7:1** enhanced.
-- Light-on-dark needs slightly higher ratios than dark-on-light (polarity asymmetry). APCA algorithm handles this.
-- Never use blue for fine detail or small text — reserve for fills and large shapes.
-- Never encode information in color alone — always add shape, pattern, icon, or label. Especially avoid red-vs-green without a secondary cue (~8% of males are color-blind).
-- Red/warm = arousal, blue/cool = calm. Stop there — broader color psychology is weakly supported.
-- Surfaces that are a solid color must 1) not have a border of a different color type and 2) idally have white text, unless that makes the text impossible to read
+- Check readability in both light and dark themes; any additional contrast metric should supplement required WCAG checks.
+- Prefer blue for fills and large shapes; small text still needs sufficient contrast regardless of hue.
+- Never encode information in color alone — always add shape, pattern, icon, or label. Especially avoid red-vs-green without a secondary cue.
+- Treat color associations as context-dependent aesthetic choices, not reliable predictors of emotion.
+- Prefer solid-color surfaces without a contrasting border and with white text where it meets contrast requirements.
 
 ### Typography
-- Serif vs sans-serif: no measurable legibility difference. Prioritize large x-height, clear confusable-character differentiation (1/I/l, 0/O), consistent stroke width.
+- Choose typefaces for readable letterforms and clear confusable-character differentiation (1/I/l, 0/O), rather than assuming serif or sans-serif is universally better.
 - Line length: **45–75 characters** (~66 ideal). Use `max-width: 65ch`.
-- Line height: **≥ 1.5×** font size for body text.
-- Letter spacing: **≥ 0.12em**. Word spacing: **≥ 0.16em**. Paragraph spacing: **≥ 2×** font size.
-- Increased letter spacing is the single most effective dyslexia intervention — zero negative impact on other readers.
-- Never use italic for body content (impairs dyslexic reading).
-- Preferred dyslexia-friendly typefaces: Helvetica, Arial, Verdana, Courier. Not "dyslexia fonts" (OpenDyslexic, Dyslexie).
-- Expose font size, letter spacing, and line height as user settings.
+- Prefer body line height around **1.5×** as a design starting point; choose default spacing for the font, language, and layout.
+- **WCAG 2.2 SC 1.4.12:** support user overrides to line height **1.5×**, paragraph spacing **2×**, letter spacing **0.12em**, and word spacing **0.16em**, applied together without lost content or functionality. These are override tolerance values, not required defaults; properties inapplicable to the language or script are excepted. [W3C explanation](https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html).
+- Spacing preferences vary by reader; avoid claiming one adjustment or typeface benefits everyone with dyslexia.
+- Prefer upright body text; reserve italics for short emphasis.
+- Prefer familiar typefaces such as Helvetica, Arial, Verdana, or Courier when offering reading alternatives.
+- Respect user font and spacing overrides. For reading-focused products, consider in-app controls; WCAG text spacing does not require them.
 
 ---
 
@@ -50,17 +50,17 @@ Note: the primary font must be made available through Google Fonts.
 ### Sound
 - Routine UI feedback: **300–1,500 Hz**. Urgent warnings: **2,000–4,000 Hz** (sparingly — overuse triggers app muting).
 - Map sounds to real-world analogues (crumple = delete, click = toggle, whoosh = send).
-- For abstract categories, use distinct **timbres** over pitch changes (~80% recognition vs much lower).
+- For abstract categories, prefer distinct **timbres** over pitch changes; verify users can distinguish them.
 - Prefer short speech cues ("sent", "error", "done") over abstract tones when vocabulary is small.
-- Every notification sound increases error rates on the user's current task — keep them rare.
+- Notification sounds interrupt attention — keep them rare.
 - Satisfying feedback = short duration + crisp onset + harmonic consonance + moderate volume.
-- Never add sound where users don't expect it. Always make all sounds independently mutable.
+- Never add sound where users don't expect it. Provide independent mute controls for sounds.
 
 ### Haptics
-- Satisfying click: **150–250 Hz**, short crisp taps, moderate amplitude. Below 150 Hz = calm. Above 200 Hz + high amplitude = urgent.
+- Prefer short crisp taps at moderate intensity; tune using platform feedback presets and test on actual devices.
 - iOS: `UIImpactFeedbackGenerator` (physical), `UISelectionFeedbackGenerator` (pickers), `UINotificationFeedbackGenerator` (outcomes), Core Haptics for custom.
 - Android: use `HapticFeedbackConstants` — don't try to match iOS cross-platform.
-- Reserve haptics for meaningful state change only. Phantom vibration syndrome affects 78–89% of users.
+- Reserve haptics for meaningful state changes only.
 - Always provide independent haptics disable setting.
 
 ---
@@ -69,27 +69,27 @@ Note: the primary font must be made available through Google Fonts.
 
 ### Spatial Consistency
 - Keep nav, key actions, and structural landmarks in consistent positions across all screens. Never rearrange internalized layouts without a compelling reason.
-- Place frequent actions near screen edges/corners (Fitts's Law — edges prevent overshooting).
+- Prefer easily reached positions for frequent actions; account for touch reach, pointer use, and platform gestures.
 - Minimum touch targets: **44×44pt** (iOS) / **48×48dp** (Android).
 
 ### Animation
 - Animate elements from origin to destination — layout changes without animation feel like teleportation.
 - Transition types: **container transform** (expand into view), **shared axis** (hierarchy nav), **fade through** (unrelated views), **fade** (appear/disappear).
 - Never use decorative animation — every animation must communicate spatial relationship, state change, or causality.
-- Durations: **100–200ms** micro-interactions, **200–350ms** element transitions, **350–500ms** view transitions. > 500ms = sluggish, < 100ms = imperceptible.
+- Starting durations: **100–200ms** micro-interactions, **200–350ms** element transitions, **350–500ms** view transitions. Adjust to the task and respect reduced-motion settings.
 - Easing: `ease-out` for enter, `ease-in` for exit, `ease`/`linear` for state changes.
 
 ### Cognitive Load
-- Present **≤ 4 unchunked options** at once. More → group into meaningful chunks first.
+- Prefer small groups of options; use four as a starting point, not a universal cognitive limit.
 - For visually demanding tasks, add feedback via a different channel (haptic/audio), not more visuals.
-- Cross-modal feedback must align in time and space — a 200ms delay feels broken.
-- Eliminate every element that doesn't serve the current task. Never place important content in banner-shaped containers (banner blindness).
+- Keep feedback across channels synchronized and clearly tied to its action.
+- Eliminate elements that do not serve the task. Make important content recognizable as part of the workflow rather than advertising.
 
 ### Time Perception
-- **< 100ms** = instantaneous. **< 1s** = conversational. **< 10s** = maximum without feedback.
-- Show skeleton screens during loading. Animate progress bars with backward-moving stripes + deceleration (~11% perceived reduction).
-- Always communicate whether a wait is bounded. Show remaining time or determinate progress.
-- Show progress as percentage ("64% complete" > "3 steps remaining"). Front-load easy steps to build momentum.
+- Aim for immediate interaction feedback; show a loading state promptly when an operation takes noticeable time.
+- Prefer skeleton screens when they accurately preview the arriving content; respect reduced-motion settings.
+- Show remaining time or determinate progress when measurable. Otherwise show honest indeterminate status.
+- Choose percentages or completed steps to match the work being measured; do not invent progress or reorder necessary steps to imply speed.
 
 ---
 
@@ -106,7 +106,7 @@ Note: the primary font must be made available through Google Fonts.
 ## Web Implementation
 
 ### Units & Root Font Size
-- **Never override the root font size.** `html { font-size: 100%; }` — anything else breaks user accessibility settings.
+- Prefer `html { font-size: 100%; }` to preserve the user's default size; avoid fixed root sizing that defeats font preferences.
 - `rem` for layout/text sizing. `em` for component-internal spacing (button padding, letter-spacing). `px` only for borders/shadows. `vw`/`vh`/`dvh` for viewport-relative sizing, never alone for text.
 
 ### Fluid Typography

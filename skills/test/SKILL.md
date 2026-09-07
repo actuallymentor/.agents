@@ -1,113 +1,41 @@
 ---
 name: test
-description: Trigger when the user wants to discover, run, or analyze tests in the repository. Do NOT trigger for code reviews (use the reflect skill), style checks (use the style skill), changelog updates (use the changelog skill), or when the user is only asking about test concepts without wanting to execute them.
+description: Discover, run, and analyze relevant repository tests; repair task-related failures when implementation is authorized. Use for test requests and task verification, not general testing concepts or code reviews.
 ---
 
-# Test Runner Skill
+# Test Runner
 
-Discover, run, and analyze tests in the current repository. When failures are found, present a fix plan and let the user choose what to act on.
+Run checks that meaningfully verify the requested behavior. Report evidence, distinguish product failures from environment problems, and repair failures within the authorized task.
 
-Skill boundary: if this skill is run in the context of an autonomous run, where the user explicitly asked for you to work autonomously, you should NOT ask the user for confirmation on which failures to fix. Instead, you should proceed to fix all failures without asking for confirmation. In a non-autonomous context, always ask the user which failures to fix before taking any action.
+## Scope and autonomy
 
-## YOLO Mode
+- Explicit test-only, discovery-only, or analysis-only requests do not authorize code fixes, including in YOLO mode. Honor any selected suites, files, or patterns.
+- Check `AGENT_AUTONOMY_MODE` case-insensitively. In YOLO or an authorized autonomous implementation task, choose relevant checks and repair task-related failures without routine confirmations. Do not fix unrelated or pre-existing failures merely because tests exposed them.
+- When invoked by a parent workflow, return results to it. Passing tests or absent test configuration ends this skill's test discovery, not the parent task's verification obligation. Do not restart the completion checklist or commit independently.
 
-Before starting, run `echo $AGENT_AUTONOMY_MODE` if it is set to `yolo`, this skill operates fully autonomously:
+## Discover and select checks
 
-- **Skip Step 2** (scope confirmation) — run all tests without asking
-- **Skip Step 6** (user choice) — fix all failures automatically
-- **Make autonomous decisions** — do not ask the user at any point
-- **Still respect Early Exit rules** — if there are no tests or all tests pass, stop as normal
+Read applicable testing preferences and the repository's instructions. Discover commands from its package or build configuration, CI workflows, and documentation: for example `package.json`, `Makefile`, `pyproject.toml`, `Cargo.toml`, `go.mod`, `pom.xml`, or `Gemfile`.
 
-## Step 1: Discover Test Configuration
+Prefer the project's documented runner and environment. Inspect what aggregate commands execute so you do not rerun their constituent suites unnecessarily.
 
-Look for test scripts in these common locations (in order of priority):
+- Follow an explicit user selection.
+- For task verification, select checks covering changed behavior and relevant regressions. Use the task's file/diff scope, including new files, while preserving unrelated work.
+- For an unqualified request to run tests, use the standard test command when practical. If several independent suites exist, choose a suitable set from the request and state it. Ask only when the choice has a material unresolved consequence; in YOLO use the best in-scope judgment.
+- Do not add arbitrary verbose flags or assume every discovered command needs to run.
 
-1. **package.json** - Check for `scripts.test`, `scripts.test:unit`, `scripts.test:e2e`, `scripts.test:integration`
-2. **Makefile** - Look for `test`, `check`, or `tests` targets
-3. **pyproject.toml** - Check for pytest configuration or test scripts
-4. **setup.py** / **setup.cfg** - Python test configuration
-5. **Cargo.toml** - Rust projects use `cargo test`
-6. **go.mod** - Go projects use `go test ./...`
-7. **build.gradle** / **pom.xml** - Java/Kotlin projects use `gradle test` or `mvn test`
-8. **Gemfile** - Ruby projects often use `bundle exec rspec` or `rake test`
-9. **.github/workflows/*.yml** - CI files often reveal how tests are run
-10. **README.md** - May contain instructions for running tests
+If no automated test configuration exists, say so. In an implementation workflow, perform appropriate available validation instead, such as running the changed command, exercising the browser flow, or checking the artifact. Absence of a test suite is not evidence that the change works.
 
-If no test configuration is discovered in any of these locations, inform the user that no tests were found and **stop immediately**. Do not proceed to any further steps. This applies in all modes (regular, autonomous, and YOLO).
+## Execute and analyze
 
-## Step 2: Confirm Test Scope
+Run the selected checks, capturing stdout, stderr, and exit status. Inspect failures, assertions, relevant stack traces, and skipped tests. Do not report success from partial output or treat skipped checks as passing.
 
-If the project has multiple test commands (e.g., unit, integration, e2e), ask the user which to run. Offer options like:
+For failures, inspect relevant source and distinguish implementation defects, incorrect tests, pre-existing problems, and missing environment requirements. Group failures by root cause and identify the smallest justified repair. Do not weaken assertions just to obtain a pass.
 
-- All tests
-- Unit tests only
-- Integration / e2e tests only
-- A specific test file or pattern
+## Repair and verify
 
-If there's only one test command, skip this step and run it directly.
+When repairs are authorized, fix task-related causes and rerun affected checks. Broaden verification if the fix changes shared behavior or new evidence identifies a regression. Continue until relevant checks pass or a concrete blocker prevents progress; do not stop after an arbitrary single rerun, and do not repeat an unchanged failing command without a new reason.
 
-## Step 3: Run the Tests
+For test-only requests, report failures without modifying code. If repairs need authorization, present numbered root causes and proposed fixes for user selection. Already-authorized implementation work does not need another confirmation.
 
-Run the identified test command using Bash:
-
-1. Run all test commands you identified sequentially, do not skip any
-2. Use verbose flags where available (e.g., `pytest -v`, `npm test -- --verbose`) for better output
-3. Capture both stdout and stderr
-
-## Step 4: Analyze Test Results
-
-Parse the output and identify:
-
-1. **Failed tests** - Test name, file, and line number
-2. **Error messages** - Full error/exception message
-3. **Stack traces** - The relevant code paths
-4. **Assertion failures** - Expected vs actual values
-5. **Skipped/pending tests** - Any tests that were skipped and why
-
-**If all tests pass, report the summary (total tests, passed count) and stop immediately.**
-
-## Step 5: Present Results and Fix Plan
-
-### Test Results Summary
-- Total tests: X
-- Passed: X
-- Failed: X
-- Skipped: X
-
-### Failures
-
-Number each failure for easy reference. For each:
-
----
-
-**#1**
-**Test**: `[test name]`
-**File**: `[test file:line]`
-**Error**: `[error message]`
-**Root Cause**: [brief analysis]
-**Fix**: [what needs to change and where]
-
----
-
-Group failures that share a root cause. Multiple tests may fail for the same underlying issue - present these as one numbered item with multiple affected tests listed.
-
-For each failure, read the relevant source code to determine:
-- Is the implementation wrong, or is the test wrong?
-- What's the minimal fix?
-- Could this fix break anything else?
-
-## Step 6: Let the User Choose
-
-**In YOLO mode, enter plan mode and fix all failures without asking for confirmation.**
-
-Ask the user what to do next. Offer these options:
-
-- Fix all failures
-- Let me pick which to fix (by number)
-- Skip fixes - just wanted the results
-
-If the user picks specific ones, ask them to list the numbers. Then fix only those, reading and editing the relevant source files.
-
-After applying fixes, re-run the tests **once** to verify the fixes worked. If new failures appear, report them but do not attempt further fixes — let the user decide the next step. Do not loop.
-
-Wait for the user's reply before taking any action, unless this skill is running in an autonomous context where the user has explicitly asked for you to work autonomously, or YOLO mode is active. In either case, proceed to fix all failures without asking for confirmation.
+Once relevant checks pass, avoid redundant reruns unless further edits or unresolved concerns justify them. Return the commands or suites run, observed pass/fail/skip results, any fixes, and remaining blockers or coverage limits to the parent workflow. Do not invent counts the runner did not provide.

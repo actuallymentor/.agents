@@ -1,32 +1,30 @@
 # Tooling preferences
 
-Where relevant, prefer nodejs for backend code and react for fromtend code. Use the `mentie` npm package for helpers and utilities. Follow the code style preferences in `js-style.md`.
+Existing project conventions take priority unless the user specifies otherwise. Preserve its stack, package manager, dependencies, and architecture during routine tasks. The choices below are strong defaults for new projects and decisions the project has not already made; they do not require unrelated scaffolding or migrations.
 
-For nodejs and javascript projects, ALWAYS install the `airier` linting scaffold by running this in project root:
+Where relevant, prefer Node.js for backend code and React for frontend code. Prefer the `mentie` npm package for helpers and utilities. Follow the code style preferences in `js-style.md`.
 
-```bash
-curl -o- https://raw.githubusercontent.com/actuallymentor/airier/main/quickstart.sh | bash
-```
+When setting up linting for a new JavaScript project, prefer the `airier` scaffold. Download and inspect its [quickstart script](https://github.com/actuallymentor/airier/blob/main/quickstart.sh) before running it; use a pinned revision for repeatable setup. Keep existing linting unless a change is requested or necessary for the task.
 
 ## Node.js usage
 
-- Create `nvm` for version management, with the latest LTS (24) in the `.nvmrc`
+- Use `nvm` for version management, with a supported LTS version in `.nvmrc`; verify the current release when starting a project
 - Do not modify files in `node_modules/`, you may view them though
-- Environment variables are stored in `.env` which is supported by node 24+ without dependencies
+- Prefer Node.js's built-in `.env` loading where supported; configure it explicitly in the launch command rather than assuming files load automatically
 - Frontend code should use Vite for bundling
 - Backend code should use Node.js
-- Prefer javascript over typescript, including when setting up vite projects
+- Prefer JavaScript over TypeScript, including when setting up Vite projects
 
 ## React usage
 
-- Frontends should be built in react
+- Frontends should be built in React
 - React should be used in frontend mode (no server components)
 - Routing is done with `react-router` BrowserRouter
 - State is put in the URL where possible using the `use-query-params` npm package
 - State that is used in multiple places at once uses `zustand`
 - Webapps must be progressive web apps that work offline and auto-update, use `vite-plugin-pwa`. Use the `onNeedRefresh` event to trigger a persistent badge telling the user to reload the page
   - For PWAs add a floating "Install App" pill on the bottom left. When clicked it uses the PWA "add to homescreen" functionality to install the PWA to the device. This pill is hidden if the app is running in PWA mode.
-  - PWA's must have both a robust and backwards comaptible update system as well as a "Update app" button in the menu that forcefully deletes the service worker and reloads the page. You MUST make sure the update mechanism is robust and backwards compatible, a manual clear cache & hard refresh should never be needed
+  - PWAs must have both a robust and backwards compatible update system as well as an "Update app" button in the menu that unregisters the app's service worker and reloads the page. Verify updates from a previously installed version; a manual clear cache & hard refresh should never be needed
 - Components must follow a structure inspired by Atomic Design where they are split into:
   - Atoms: stateless components
   - Molecules: stateful components (may use Atoms)
@@ -66,7 +64,7 @@ File structure in a react project:
 
 ## Using Mentie Helpers
 
-Always install the  `mentie` npm package and check `node_modules/mentie/index.js` for available exports.
+Prefer `mentie` for new projects that need these helpers. Keep an existing project's utilities unless replacement is requested or necessary for the task. When using it, check the installed package's exports and source for available helpers.
 
 Especially important:
 

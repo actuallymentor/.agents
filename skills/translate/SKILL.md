@@ -1,64 +1,29 @@
 ---
 name: translate
-description: Trigger when the user wants to sync, update, or create i18n translation files. Finds the project's translation module, maps translation files, and ensures all languages are up to date using English as the canonical source. Do NOT trigger for code reviews, style checks, or general text editing.
+description: Create or synchronize i18n translation files using the project's actual source language and requested or configured target locales. Not for general text editing or code review.
 ---
 
 # Translate Skill
 
-Discover the project's i18n setup, map translation files, and synchronize all languages against the English canonical source.
+Discover the project's i18n setup and synchronize translations within the requested scope. Audit-only requests return findings without changing files. Autonomy changes confirmation behavior, not the requested languages or scope.
 
-## YOLO Mode
+## Discover Source and Targets
 
-Before starting, check `echo $AGENT_AUTONOMY_MODE`. If set to `yolo`, operate fully autonomously — skip all user confirmations, proceed through every step without asking.
+- Inspect package dependencies, i18n configuration, extraction scripts, and translation directories to identify the framework, formats, namespaces, and locale conventions.
+- Determine the actual source language from project configuration and source messages. A fallback locale alone is not proof of the authoring language. Do not rename or relabel a sole locale as English.
+- Use the requested target locales; otherwise use the project's configured targets or existing translation locales. Do not invent a default set of new languages.
+- If the source or targets cannot be determined, report what is missing and clarify before dependent edits. Continue any independent audit work. If no i18n setup exists, report that fact; create a new setup only when the user requested it.
 
-## Step 1: Discover Translation Module
+## Audit and Synchronize
 
-Search the project for an i18n / translation module:
+1. Read the relevant source catalogs and compare messages using the framework's structure, not merely literal key equality. Account for namespaces, ICU select/plural messages, locale-specific plural categories, and framework metadata.
+2. Translate missing messages into the selected targets. Preserve valid existing translations and legitimate locale-specific variants.
+3. Identify changed source messages using available history, source hashes, fuzzy markers, or catalog metadata. Update affected translations when the change is established. If freshness cannot be established, report the uncertainty rather than treating matching keys as proof of current translations.
+4. Investigate target-only entries before removing anything. Delete only entries confirmed obsolete by the source/extraction workflow and usage evidence within the task's scope. Preserve ambiguous entries and report them.
 
-1. **Package files** — check `package.json`, `Gemfile`, `requirements.txt`, `pyproject.toml`, `Cargo.toml`, `go.mod`, `composer.json` for i18n libraries (e.g. `i18next`, `react-intl`, `vue-i18n`, `gettext`, `ruby-i18n`, `fluent`)
-2. **Config files** — look for `i18n.config.*`, `next-i18next.config.*`, `.i18nrc`, `babel.config.*` with i18n plugins, or similar
-3. **Code imports** — grep for `import.*i18n`, `require.*i18n`, `from.*i18n`, `useTranslation`, `t(`, `I18n.t` patterns
-4. **Translation directories** — check for `locales/`, `translations/`, `i18n/`, `lang/`, `messages/`, `src/locales/`, `public/locales/`
+## Translation and Validation
 
-**If no translation module or translation files are found, inform the user and stop immediately.** Do not proceed.
-
-If found, report:
-- Which i18n library is in use
-- Where translation files live
-- What format they use (JSON, YAML, PO, XLIFF, etc.)
-- Which languages currently exist
-
-## Step 2: Audit and Sync Translations
-
-Use English (`en`) as the canonical language.
-
-### If multiple language files already exist:
-
-1. Read the English source file in full
-2. For each other language file, compare keys against English
-3. Identify **missing keys** (in English but not in target) and **orphaned keys** (in target but not in English)
-4. Translate missing keys into the target language
-5. Remove orphaned keys to keep files in sync
-6. Preserve existing translations — only touch missing or orphaned entries
-
-### If only one language file exists:
-
-1. Treat it as the English canonical source (rename if needed)
-2. Create language files for: **es** (Spanish), **de** (German), **ja** (Japanese), **fr** (French), **pt** (Portuguese), **ru** (Russian), **it** (Italian), **nl** (Dutch), **pl** (Polish), **zh** (Chinese)
-3. Translate all keys into each new language
-4. Match the file format and naming convention of the original
-
-## Translation Guidelines
-
-- Preserve interpolation variables (`{{name}}`, `{count}`, `%{user}`, `%s`, etc.) exactly as-is
-- Respect pluralization rules for each target language
-- Keep translations natural and idiomatic — not word-for-word literal
-- Maintain the same nesting structure and key order as the English source
-- Use UTF-8 encoding for all files
-
-## Step 3: Report
-
-Summarize what was done:
-- Languages updated or created
-- Number of keys translated per language
-- Any keys that were ambiguous or need human review (flag these clearly)
+- Preserve interpolation variables, positional arguments, markup, and message syntax. Use the framework's required plural/select forms for each target language; do not force English's forms onto other locales.
+- Keep translations natural and idiomatic. Preserve format, encoding, nesting, and ordering conventions except where the framework requires locale-specific differences.
+- Run the project's available catalog validation or compilation and focused checks for placeholders and plural/select syntax. Distinguish structural validation from linguistic review.
+- Report languages and messages updated, validation results, and ambiguities needing review. Return to the parent task's completion workflow; do not invoke the checklist recursively.

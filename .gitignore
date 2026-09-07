@@ -1,5 +1,24 @@
-# ignore all by default
-*
+# Keep this shared agent home private by default; track maintained sources.
+/*
+!/.gitignore
+!/AGENTS.md
+!/CLAUDE.md
+!/LOOP.md
+!/README.md
+!/CHANGELOG.md
+!/symlink.sh
+!/preferences/
+!/skills/
+!/tests/
+
+# Never discover generated or secret files inside the source directories.
+**/node_modules/
+**/__pycache__/
+**/.env
+**/.env.*
+**/.babysitrc
+**/.notes/
+**/*.log
 
 # Caches and transient data
 cache/
