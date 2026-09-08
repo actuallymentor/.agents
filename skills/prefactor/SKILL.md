@@ -10,6 +10,7 @@ Prefactor uses subagents to analyse the codebase for refactoring opportunities.
 Boundaries:
 
 - Do not create, change, or delete files in the codebase.
+- If the user requested a local-only run, do not create github issues but list findings locally. Default behavior is to create issues remotely
 - Explicit invocation of this skill authorizes its GitHub issue workflow unless the user limits the task. An analysis-only request authorizes no external writes.
 
 Workflow:
