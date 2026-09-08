@@ -1,28 +1,38 @@
 ---
 name: housekeeping
-description: Maintain persistent memory, revisit outdated project decisions, and update dependencies during requested maintenance. Honor narrower scopes such as memory-only cleanup or analysis-only reports.
+description: Keep the code and docs clean and up to date
 ---
 
 # Housekeeping
 
-Keep maintenance within the user's requested scope. A memory-only task stops after memory maintenance; an analysis-only task reports findings without edits. Autonomy does not broaden the assignment. Preserve the project's existing tools and conventions.
+Parse your persistent memory files and polish and condense them.
 
-## Memory Maintenance
+## Step 1: check that memory is up to date
 
-Read the memory index and its relevant linked notes. Condense repetition, remove demonstrably stale advice, and repair references. Preserve still-useful decisions, unresolved human questions, and historical context; do not erase a past decision merely because its implementation later changed. Keep the index current for retained or newly added notes.
+For the following files check if their content and references are still up to date and relevant. If not, update them accordingly:
 
-## Revisit Decisions
+- `./.notes/MEMORY.md`
+- `./.notes/GOTCHAS.md`
+- `./.notes/RESEARCH.md`
+- `./.notes/TIMELINE.md`
+- `./.notes/HUMAN.md`
 
-When broader maintenance is requested, identify decisions whose original assumptions may be outdated. Research concrete candidates using current authoritative sources. Distinguish recommendations from necessary changes and weigh migration cost against the benefit. Apply changes within the authorized maintenance scope; report proposals that would materially expand it.
+## Step 2: consider research and updates
 
-## Dependency Maintenance
+Look at the memory system and the codeebase and ask yourself the following: "are there decisions that were made in the past that were based on information that might be outdated now?". For example, if we chose certain modules, apis, or versions because they were the best at the time but by now better versions or approaches might exist.
 
-When dependency updates are in scope:
+This step is explicitly NOT about updating dependency numbers or versions.
 
-1. Inspect the working tree, manifests, lockfiles, package manager, runtime constraints, and project validation commands. Record the preexisting state of files that may change so rollback can preserve the user's work.
-2. Select useful updates and group them by risk: compatible updates, potentially breaking updates, and migrations. Review release notes for compatibility; do not replace the project's toolchain just to match a preference.
-3. Update a bounded batch using the existing package manager. Keep manifests and lockfiles consistent, and run checks appropriate to the affected behavior before continuing.
-4. If a batch fails, determine whether the failure predates the update. Fix a justified in-scope incompatibility or undo only this batch's changes. Never reset the whole worktree or discard preexisting edits. If changes cannot be separated safely, stop and explain the overlap.
-5. Report unverified or deferred upgrades honestly. Do not claim an update is safe when required validation could not run.
+If `echo $AGENT_AUTONOMY_MODE` is `yolo`, proceed with the updates automatically. If not, offer the user a summary of your findings and ask for confirmation before making any changes.
 
-Summarize changes, rationale, validation, and deferred items. Return to the parent task's completion workflow once; do not invoke the usual skills or checklist recursively from each maintenance batch.
+## Step 3: update dependencies
+
+Check the projects for dependencies that make sense to update. Update them optimistically, then run the test suites and the usual skills to see if everything works, if not roll back and update them intelligently. To update intelligently you update packages in batches, test the outcome, and fix bugs that arise. Use these batches:
+
+- low risk dependencies
+- dependencies that you expect might break things
+- high risk dependencies that probably require migrations
+
+## Step 4: Summarize activity
+
+Show a condensed list of things you changed and why.

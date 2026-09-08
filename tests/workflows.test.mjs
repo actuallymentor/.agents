@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict'
 import { execFile } from 'node:child_process'
 import { mkdtemp, mkdir, readFile, readlink, rm, symlink, writeFile } from 'node:fs/promises'
-import { createServer } from 'node:http'
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { test } from 'node:test'
@@ -60,62 +59,6 @@ test( `setup rejects missing sources before creating destinations`, async contex
     const { fixture_dir, claude_dir } = await setup_fixture( context )
     await assert.rejects( exec_file( `bash`, [ setup_script, join( fixture_dir, `missing` ), claude_dir ] ), { code: 1 } )
     await assert.rejects( readFile( join( claude_dir, `CLAUDE.md` ) ), { code: `ENOENT` } )
-} )
-
-const notification_example = async () => {
-    const skill = await readFile( join( repo_dir, `skills/updatehuman/SKILL.md` ), `utf8` )
-    const [ , example ] = skill.match( /```bash\n([\s\S]*?)\n```/ )
-    return example
-}
-
-test( `notification example preserves message data over real HTTP form encoding`, async context => {
-    let received_request
-    const server = createServer( async ( request, response ) => {
-        const chunks = []
-        for await( const chunk of request ) chunks.push( chunk )
-        received_request = new URLSearchParams( Buffer.concat( chunks ).toString() )
-        response.setHeader( `Content-Type`, `application/json` )
-        response.end( JSON.stringify( { status: 1 } ) )
-    } )
-    await new Promise( resolve_listen => server.listen( 0, `127.0.0.1`, resolve_listen ) )
-    context.after( () => new Promise( resolve_close => server.close( resolve_close ) ) )
-
-    // Override only curl's destination; execute the documented command and encoding.
-    const wrapper = `curl() { command curl "\${@:1:$#-1}" "$TEST_NOTIFY_ENDPOINT"; }\n`
-    const summary = `Fixed A&B + C=✓; literal $HOME and \`commands\` stay text.\nSecond line.`
-    const commits = `abc123 🐛 fix encoding`
-    const human_input = `None & nothing pending`
-    const title = `Babysitter owner/repo update`
-    const url = `https://example.com/preview?a=1&b=two+words`
-    const { stdout } = await exec_file( `bash`, [ `-c`, wrapper + await notification_example() ], {
-        env: {
-            ...process.env,
-            PUSHOVER_TOKEN: `fixture-token`,
-            PUSHOVER_USER: `fixture-user`,
-            TEST_NOTIFY_ENDPOINT: `http://127.0.0.1:${ server.address().port }/messages`,
-            notify_title: title,
-            notify_summary: summary,
-            notify_commits: commits,
-            notify_input: human_input,
-            notify_url: url
-        }
-    } )
-
-    assert.equal( JSON.parse( stdout ).status, 1 )
-    assert.deepEqual( Object.fromEntries( received_request ), {
-        token: `fixture-token`, user: `fixture-user`, title,
-        message: `Summary of activity: ${ summary }\n\nCommits made:\n${ commits }\n\nItems for human input:\n${ human_input }`,
-        url, priority: `0`
-    } )
-} )
-
-test( `missing notification credentials do not call the network`, async () => {
-    const wrapper = `curl() { printf 'unexpected network call' >&2; return 99; }\n`
-    const { stderr } = await exec_file( `bash`, [ `-c`, wrapper + await notification_example() ], {
-        env: { ...process.env, PUSHOVER_TOKEN: ``, PUSHOVER_USER: `` }
-    } )
-    assert.match( stderr, /credentials are not configured/ )
-    assert.doesNotMatch( stderr, /unexpected network call/ )
 } )
 
 test( `gitignore discovers maintained additions and excludes private/generated files`, async context => {

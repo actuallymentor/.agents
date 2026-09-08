@@ -27,4 +27,4 @@ node --test tests/workflows.test.mjs
 bash -n symlink.sh
 ```
 
-The tests exercise setup in temporary directories, notification encoding over local HTTP, Git ignore rules, and the age example. They do not modify user configuration or send Pushover notifications.
+The tests exercise setup in temporary directories, Git ignore rules, and the age example. They do not modify user configuration.

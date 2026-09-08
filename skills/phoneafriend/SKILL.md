@@ -1,37 +1,83 @@
 ---
 name: phoneafriend
-description: Get an independent CLI-based LLM review of a plan or task changes, assess findings, and repair substantive issues when implementation is authorized. Use for complex plans, post-commit reviews, or a requested second opinion.
+description: Ask another LLM for a review
 ---
 
 # Phone a friend
 
-Ask another LLM for a read-only review, then judge the feedback. Preserve the user's preference for simple solutions and decisive action: fix real bugs, intent gaps, and worthwhile simplifications; optional polish is not a reason to keep working.
+You will ask another LLM for a review of the the work you just finished, or are about to do. They will be instructed to change nothing, and just report back to you. You will then evaluate which of their feedback is worth addressing.
 
-## Scope and autonomy
+## YOLO Mode
 
-- Accept a plan, task-owned uncommitted changes (including new files), or commits from this task. Use the explicit review range when provided. Stop only if no review target exists, not merely because there are no commits.
-- Preserve unrelated changes and explicit review-only instructions. In YOLO mode, fix substantive findings within the authorized implementation scope without routine confirmation. Otherwise use existing authorization or present the worthwhile findings for selection.
-- The reviewing agent must not edit, commit, publish, invoke another reviewer, or run completion workflows. Give it the actual task intent, target files/range, relevant constraints, and verification results. Local diffs and file contents are sufficient; a remote or PR is not required.
-- When embedded in a parent task, return findings and any authorized corrections to its completion workflow. Never start a nested checklist or recursively invoke this skill.
+Before starting, check the environment variable `AGENT_AUTONOMY_MODE` via Bash (e.g. `echo $AGENT_AUTONOMY_MODE`) — compare case-insensitively. If it is set to `yolo`, this skill operates fully autonomously:
 
-## Choose and launch the reviewer
+- **Skip all user confirmations** - Do not ask the user to confirm intent (Step 3), do not ask which findings to address (Step 6)
+- **Infer intent silently** - State the inferred intent but do not ask for confirmation
+- **Apply all findings automatically** - After the assessment, proceed directly to applying all actionable suggestions without waiting for user input
+- **Still respect Early Exit rules** - If there are no changes or no findings, stop as normal
 
-If you are Codex, ask Claude; if Claude, ask Codex; otherwise prefer Claude. Use the other agent's installed CLI. If it is unavailable or rate-limited, try an independent external session of the available coding agent. Report failure if neither can review; do not claim a completed review.
+## Step 1: Decide who to ask for help
 
-Inspect the installed CLI's supported models, effort levels, and session options. Respect an explicitly chosen model; otherwise choose its best available suitable model. Prefer high effort for substantive Claude reviews and higher supported effort for difficult Codex reviews. Do not guess flags or assume an old model/effort list is current.
+If you are codex, ask claude. If you are claude, ask codex. If you are anyone else, ask claude.
 
-Launch with read-only tools or sandbox controls where supported, plus explicit read-only instructions. Use a fresh, identifiable session and retain the returned session ID for follow-ups. Never use bare `--continue`, which may resume unrelated work. Use the CLI's explicit resume-by-ID mechanism, or start fresh with the exact review context if resume is unavailable.
+## Step 2: Gather target work for review
 
-Pass review text through stdin, a safely quoted argument, or a supported prompt file. Treat shell arguments as code: do not interpolate repository text into executable shell syntax. Capture the report and session identifier. Allow up to 30 minutes for a substantive review; poll while keeping the user informed rather than blocking updates. Stop earlier for an explicit error or demonstrable hang, not merely a quiet interval.
+Option 1, you did work that needs review: Look at this conversation, then make a list of the commits of things that you just changed, or the uncommitted work you made. We do not look back in history. Only list commits that you made in this conversation, and after any potential previous phoneafriend sessions. If there are no commits or uncommitted work, stop immediately and say "I have no recent changes to ask about".
 
-## Assess and act
+Option 2: you made a plan and need a second opinion: Take the plan you just made, and then ask the other LLM to review it.
 
-Ask for evidence-backed findings: location, concrete failure or benefit, assumptions, confidence, and the simplest useful correction. Have the reviewer investigate uncertain assumptions instead of treating stylistic preferences as bugs. Request concise rationale, not a transcript of private reasoning.
+## Step 3: Ask the other LLM for a review
 
-Evaluate findings against the user's intent and code. Discard duplicates, unrelated issues, and complexity that buys little benefit. Report unsupported concerns as uncertain rather than automatically implementing them.
+To do this, we will call the other LLM through their CLI. Check what models are available in the cli and use the latest and best one. You must instruct the model to give a review of your work, focusing on the scope you deem relevant. Set a generous timeout, reviews can take 30 minutes and that is allowed to happen. Do not kill coding agents unless they explicitly hang or exteed 30 minutes in duration without output.
 
-For accepted substantive findings, make a concise plan; use dedicated plan mode only when available. Apply authorized corrections, verify the affected behavior, and return to the parent workflow for the commit. A standalone invocation that makes edits hands off to the main task's single completion workflow.
+Make an estimation what effort level is needed for this review, valid values are:
 
-## Follow-up boundary
+- claude: `low`, `medium`, `high`, `xhigh`, `max`, `ultracode`
+- codex: `low`, `medium`, `high`, `xhigh`, `max`
 
-The parent workflow owns post-commit reviews and permits one automatic corrective round from external feedback. Review corrective commits for those corrections and unresolved substantive findings, then report remaining suggestions without starting another automatic review-driven edit cycle. This limit does not stop repairs required by the original task or its verification. Do not reopen settled design choices or the entire project. Findings that are absent, repeated, out of scope, or optional polish never justify another edit cycle.
+Example if you are codex and asking claude:
+
+Determine the available model for this level of review when calling the other LLM, example for a very complex problem:
+
+- When asking Claude, pass `--model best --effort high`.
+- When asking Codex, pass `--model gpt-5.6-sol -c 'model_reasoning_effort="xhigh"'`.
+
+Note: codex is cheap, claude is expensive. When reviewing with codex, err on the side of high effort (xhigh is fine), when reviewing with claude be more conservative (`high` is the maximum).
+
+```bash
+claude --model best --effort high -p "[base prompt]"
+# You wait for the response
+
+claude --model best --effort high -p --continue "Review the following commits for bugs and improvements, do not change anything, just report back: [list of commit hashes]"
+# You will read the response
+```
+
+Example if you are claude and asking codex:
+
+```bash
+codex --model gpt-5.6-sol -c 'model_reasoning_effort="xhigh"' exec "[base prompt]"
+# You wait for the response
+
+codex --model gpt-5.6-sol -c 'model_reasoning_effort="xhigh"' exec "Review the following commits for bugs and improvements, do not change anything, just report back: [list of commit hashes]"
+# You will read the response
+```
+
+**Note: if the other agent has hit it's session limit, start the review using the same coding agent, but outside this session. You must run a `agent --model etc` command to start a new external session.**
+
+## Step 4: Assess what is worth addressing
+
+Look at the report from the other LLM. Judge what is worth addressing based on the conversation you have been having. Ignore nitpicks and edge cases. We are looking to prevent bugs, fix glaring oversights, or add highly relevant improvements. Also make sure not to trade minor improvements in performance of security for increases in complexity.
+
+## Step 5: Ask the user whether to address the findings
+
+Ask the user if you should implement the worthwhile findings. In YOLO mode, you do not ask and just continue.
+
+## Step 6: Enter plan mode and fix the findings
+
+For each finding you are addressing, create a task for it in the plan. Then execute the plan to fix the issues. After executing, ask the user if they want to run phoneafriend again to check the fixes. In YOLO mode you do not ask and just continue to run phoneafriend again, unless the last report had no issues of duplicate issues.
+
+### Early Exit
+
+- **No commits = stop.** If there are no commits to review in Step 2, say "I have no recent changes to ask about" and stop immediately. Do not proceed to Step 3.
+- **No findings = stop.** If the other LLM reports no issues or improvements worth addressing, say "The review found no issues or improvements worth addressing" and stop immediately. Do not proceed to Step 5 or Step 6.
+- **Duplicate findings = stop.** If the other LLM's report is identical to a previous report from a phoneafriend session in this conversation, say "The review did not find any new issues or improvements compared to the last review" and stop immediately. Do not proceed to Step 5 or Step 6. This prevents infinite loops of phoneafriend sessions without new findings.

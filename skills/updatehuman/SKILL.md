@@ -1,41 +1,39 @@
 ---
 name: updatehuman
-description: Send the user a Pushover notification for meaningful task completion, a new blocker needing input, or an explicit notification request. Skip setup-only activity and duplicate updates.
+description: Notify the human of updates to agent progress
 ---
 
 # Update Human
 
-Send one useful update covering activity since the last successful notification, or the task so far if none was sent. A setup-only turn, empty memory initialization, or unchanged status does not warrant a notification. An explicit user request to notify overrides these timing defaults.
+You will send a notification to the human user about what has happened in this session.
 
-The main agent owns notifications; subagents return their results to it. Invoking this skill from a completion workflow does not start another checklist.
+Boundaries:
 
-## Prepare
+- Calls of `updatehuman` always look at session activity since the last call of `updatehuman`. If this is the first call, summarize the entire session.
 
-1. Summarize meaningful results and verification in 2–4 sentences.
-2. List only commits from this task and any concrete blocker or decision needing human input. Use `None` where appropriate.
-3. Use `Babysitter org/repo update` as the title, derived from the actual repository; use the directory name when no remote exists. Link to a relevant preview or repository URL, or leave the URL empty.
-4. Read credentials from `PUSHOVER_TOKEN` and `PUSHOVER_USER`. If missing, check an allowed `.babysitrc` for those two literal values; do not execute or source the file. Never print credentials. If unavailable, log a short warning and return without sending.
+Workflow:
 
-## Send
+1. Summarize the activity in this session into 2-4 sentences
+2. Gather commits made in the codebase
+3. Gather items that human input is useful for (ie blockers you encountered or sanity checks on your decisions)
 
-Populate the variables below as data, using safely quoted values or structured tool arguments. Do not paste untrusted text into executable shell syntax. The example assumes credentials and the prepared `notify_title`, `notify_summary`, `notify_commits`, `notify_input`, and optional `notify_url` variables are already set.
+Send a notification to the humam
+
+## Sending notifications
+
+You will send a pushover notification using the following command:
 
 ```bash
-if [[ -z ${PUSHOVER_TOKEN:-} || -z ${PUSHOVER_USER:-} ]]; then
-    printf 'Notification skipped: Pushover credentials are not configured.\n' >&2
-else
-    printf -v notify_message 'Summary of activity: %s\n\nCommits made:\n%s\n\nItems for human input:\n%s' \
-        "$notify_summary" "$notify_commits" "$notify_input"
+# Where orgname/reponame is based on the git repo data, use directory name if git data is missing
+TITLE="Babysitter orgname/reponame update"
 
-    curl --fail --silent --show-error --connect-timeout 10 --max-time 30 \
-        --data-urlencode "token=$PUSHOVER_TOKEN" \
-        --data-urlencode "user=$PUSHOVER_USER" \
-        --data-urlencode "title=$notify_title" \
-        --data-urlencode "message=$notify_message" \
-        --data-urlencode "url=${notify_url:-}" \
-        --data-urlencode 'priority=0' \
-        https://api.pushover.net/1/messages.json
-fi
+# Where $SUMMARY is a 2-4 sentence summary of the session activity, $COMMITS is a list of commits made in this session (with truncated message), and $HUMAN_INPUT is a list of items that human input is useful for. Note the $'' newline compatible syntax
+MESSAGE=$'Summary of activity: $SUMMARY\n\nCommits made:\n$COMMITS\n\nItems for human input:\n$HUMAN_INPUT'
+
+# URL is optional, if there is a preview url use it, if not show the github link, is there is nothing relevant, set to ''
+URL=""
+
+# Check for $PUSHOVER_TOKEN and $PUSHOVER_USER environment variables, if they are not set, check in .babysitrc file, if they are not set there, do not send a notification and log a warning
+curl -f -X POST -d "token=$PUSHOVER_TOKEN&user=$PUSHOVER_USER&title=$TITLE&message=$MESSAGE&url=$URL&priority=0" https://api.pushover.net/1/messages.json
+
 ```
-
-Check both the command result and the API response for success before recording the notification as sent. On failure, report it without obscuring the completed task or automatically retrying a potentially delivered message.

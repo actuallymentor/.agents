@@ -1,43 +1,93 @@
 ---
 name: style
-description: Review task changes against project coding conventions and apply warranted refinements when implementation is authorized. Use for style reviews and the completion checklist, not functional bug reviews.
+description: Trigger when the user wants to check recent code changes for style alignment against the project's coding conventions in CLAUDE.md/AGENTS.md. Do NOT trigger for functional reviews or bug detection.
 ---
 
-# Code Style Review
+# Code Style Review Skill
 
-Check readability, simplicity, and consistency within the current task's changes. Prefer existing project conventions unless the user specifies otherwise.
+Review recent code changes for style alignment and elegance, then let the user choose which refinements to apply.
 
-## Scope and autonomy
+## YOLO Mode
 
-- Explicit review-only requests prohibit edits, including in YOLO mode.
-- Check `AGENT_AUTONOMY_MODE` case-insensitively. In YOLO or an authorized autonomous implementation task, analyze the scoped changes and apply warranted refinements without confirmations. Autonomy never skips analysis or expands the task.
-- When invoked by a parent workflow, return results to it. A clean review ends this skill, not the task. Do not restart the completion checklist, commit independently, or invoke this skill recursively.
+Before starting, check `echo $AGENT_AUTONOMY_MODE`. If it is set to `yolo`, this skill operates fully autonomously:
 
-## Gather conventions and changes
+- **Skip Step 3** (scope confirmation) — review all recent changes without asking
+- **Skip Step 7** (user choice) — apply all suggestions automatically
+- **Make autonomous decisions** — do not ask the user at any point
+- **Still respect Early Exit rules** — if there are no changes, no instruction file, or no findings, stop as normal
 
-Read applicable `AGENTS.md`, agent-specific instruction files such as `CLAUDE.md`, and relevant language preferences. Existing project rules and surrounding code take precedence over general preferences unless otherwise specified. If no instruction file exists, use the project's established conventions; do not invent a new style.
+## Step 1: Extract Style Preferences from Instruction Files
 
-Use the task's starting worktree state, files, and commit range to identify changes. Inspect staged and unstaged diffs and task-owned untracked files, respecting ignore rules. Do not select commits by a time window or sweep in unrelated changes from the same file.
+In order of importance, extract style preferences from the following files if they exist:
 
-If the baseline is unavailable, use an explicitly requested diff or PR range. For an ambiguous recent-work review, choose and state a defensible read-only scope from repository context. Preserve pre-existing changes and do not modify work whose ownership is uncertain. Read surrounding code for context.
+- `AGENTS.md`
+- LLM specific instruction files (e.g. `CLAUDE.md`, `.cursorrules`, `.github/copilot-instructions.md`)
+- General preferences in `~/.agents/preferences/js-style.md` (see `AGENTS.md` for other preference paths)
 
-If there are no changes in scope, report that and return.
+Focus on:
 
-## Analyze style
+- Explicit Style Rules (naming, spacing, syntax)
+- Implicit Style Patterns (conventions visible in examples)
+- Philosophical Preferences (readability priorities, code organization)
 
-For changed code, consider:
+## Step 2: Gather Recent Changes
 
-- **Readability:** Can a teammate scan it and understand its intent?
-- **Idioms:** Does it follow the project's naming, spacing, and syntax conventions?
-- **Simplicity:** Is there a clearer expression of the same behavior?
-- **Consistency:** Does it fit the surrounding code and applicable instructions?
+Collect what to review:
 
-Avoid cosmetic churn and approach changes disguised as formatting. Report functional concerns separately; do not expand a style-only task into bug repairs.
+1. Run `git diff` (unstaged) and `git diff --staged` (staged) to find uncommitted changes
+2. Run `git log --pretty=format:"%h %ad | %s" --date=iso` to find recent commits, select those since the last review or the last hour
+3. For each changed file, read the full file to understand surrounding context
 
-## Resolve and return
+If there are no changes to review, inform the user and stop.
 
-If no warranted refinements exist, report that and return. Otherwise, number suggestions with a file and line, the proposed refinement, and its rationale. Cite the relevant convention and include before/after snippets only when useful.
+## Step 3: Deep Style Analysis
 
-Apply task-related refinements when implementation is authorized; in YOLO proceed without routine confirmations. For review-only requests, report findings without edits. Otherwise, if repair is not authorized, let the user choose numbered suggestions, all, or none in plain text.
+For each piece of changed code within the confirmed scope, consider:
 
-Verify refinements with relevant formatting, lint, or behavior checks. Inspect the output and resulting diff. Return changes, verification, and unresolved findings to the parent workflow without starting another review cycle.
+- **Readability** - Can a teammate scan this and understand it immediately?
+- **Idiomatic Patterns** - Does it follow the project's conventions from AGENTS.md?
+- **Elegance & Simplicity** - Is there a cleaner way to express the same thing?
+- **Consistency** - Does it match the style of surrounding code in the same file?
+
+## Step 4: Early Exit if No Suggestions
+
+**If the analysis finds no style issues across the confirmed scope, report that the code is clean and aligned with the project's style preferences, then stop immediately.** Do not proceed to Step 6. Do not ask the user anything. A clean review is a good outcome — output a brief "all clear" summary as regular conversation text and end. This applies in all modes (regular, autonomous, and YOLO).
+
+## Step 5: Present Suggestions
+
+Structure the output clearly:
+
+### Code Review
+
+Number each suggestion for easy reference. For each:
+
+---
+
+**#1**
+**Location**: `[path/to/file:line]`
+
+**Current Code**:
+```
+[the existing code]
+```
+
+**Suggested Refinement**:
+```
+[the more elegant alternative]
+```
+
+**Rationale**: [Why this is more aligned with the user's style preferences and/or more elegant. Reference specific preferences from the instruction file when applicable.]
+
+---
+
+## Step 6: Let the User Choose
+
+Offer these options:
+
+- Apply all suggestions
+- Let me pick specific ones (by number)
+- Skip - just wanted the review
+
+If the user picks specific ones, ask them to list the numbers. Then apply only those changes.
+
+Wait for the user's reply before taking any action, unless this skill is running in an autonomous/YOLO mode, in which case apply all suggestions immediately without asking.
