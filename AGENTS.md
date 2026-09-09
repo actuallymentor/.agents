@@ -59,6 +59,7 @@ Do NOT use these files for implementation details, trust that a future LLM will 
 | `./.notes/RESEARCH.md` | Notes about research you have done, such as summaries of relevant documentation or explanations of concepts you had to look up |
 | `./.notes/TIMELINE.md` | A timestamp list of major decisions, changes, or events that occurred during your work, to help you keep track of the sequence of events and the rationale behind them |
 | `./.notes/HUMAN.md` | Document decisions or questions that you think a human needs to review. Use this when you are in doubt, or when you make an executive decision that is significant |
+| `./.notes/DEPLOYMENTS.md` | Document places this project is deployed and how to reach them, so that if the user says "check prod" you know where to look |
 
 Boundaries:
 
