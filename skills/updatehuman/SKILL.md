@@ -27,8 +27,9 @@ You will send a pushover notification using the following command:
 # Where orgname/reponame is based on the git repo data, use directory name if git data is missing
 TITLE="Babysitter orgname/reponame update"
 
-# Where $SUMMARY is a 2-4 sentence summary of the session activity, $COMMITS is a list of commits made in this session (with truncated message), and $HUMAN_INPUT is a list of items that human input is useful for. Note the $'' newline compatible syntax
-MESSAGE=$'Summary of activity: $SUMMARY\n\nCommits made:\n$COMMITS\n\nItems for human input:\n$HUMAN_INPUT'
+# Where $SUMMARY is a 2-4 sentence summary of the session activity, $COMMITS is a list of commits made in this session (with truncated message), and $HUMAN_INPUT is a list of items that human input is useful for.
+printf -v MESSAGE 'Summary of activity: %s\n\nCommits made:\n%s\n\nItems for human input:\n%s' \
+  "$SUMMARY" "$COMMITS" "$HUMAN_INPUT"
 
 # URL is optional, if there is a preview url use it, if not show the github link, is there is nothing relevant, set to ''
 URL=""
