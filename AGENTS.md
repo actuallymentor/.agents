@@ -80,8 +80,8 @@ Note: if you only changed `.notes/` files, you skip the reflect and style steps.
 2. **Run the `style` skill** — review your changes for code style alignment
 3. **Run the `changelog` skill** — update CHANGELOG.md, version numbers, and README.md (skip if changes are purely internal with no user-facing impact)
 4. **Offer the `test` skill** — if the project has tests configured, offer to run them or in YOLO mode run them if you see fit
-5. **Commit** — if `echo $AGENT_AUTONOMY_MODE` is `yolo`, commit with a gitmoji message; otherwise suggest a commit command with message and ask for confirmation. Common [gitmoji](https://gitmoji.dev/): `✨ feature`, `🐛 bug`, `🔥 removal`, `📚 docs`, `♻️ refactor`, `🎨 style`, `✅ tests`
-6. **Cleanup** - check if your work has left orphanes temporary or nonfunctional files. If so, delete them.
+5. **Cleanup** - check if your work has left orphanes temporary or nonfunctional files. If so, delete them.
+6. **Commit** — if `echo $AGENT_AUTONOMY_MODE` is `yolo`, commit with a gitmoji message; otherwise suggest a commit command with message and ask for confirmation. Common [gitmoji](https://gitmoji.dev/): `✨ feature`, `🐛 bug`, `🔥 removal`, `📚 docs`, `♻️ refactor`, `🎨 style`, `✅ tests`
 7. **TL;DR:** - write a summary line in the format: I changed xyz in commits aaa, bbb, ccc.
 8. **Phone a friend** — after committing, offer to run the `phoneafriend` skill to get another LLM's perspective on your work. In YOLO mode, automatically run `phoneafriend` after every commit. Do not run `phoneafriend` if you are working only on a `.notes/` file.
 9. **Run the `updatehuman` skill** - Send a push notification to the human user with a summary of your work.

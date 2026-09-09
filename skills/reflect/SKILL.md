@@ -31,11 +31,11 @@ Keep only the "worth addressing" comments — these are collected here and folde
 
 Collect the full picture of what changed recently:
 
-1. **Uncommitted changes** - Run `git diff` (unstaged) and `git diff --staged` (staged)
+1. **Uncommitted changes** - Run `git status`, `git diff` (unstaged) and `git diff --staged` (staged)
 2. **Recent commits** - Run `git log --oneline -10` to see recent history
 3. **Branch context** - Get the current branch name with `git branch --show-current`
 4. **Full file context** - For any files with uncommitted changes, read those files in full
-5. **Commit diffs** - For the last 3-5 commits on the current branch, run `git show --stat <hash>` and `git show <hash>` to understand the full scope of recent work
+5. **Commit diffs** - Find the commits made in this session on the current branch, run `git show --stat <hash>` and `git show <hash>` to understand the full scope of recent work
 
 If there are no uncommitted changes AND no recent commits, inform the user there's nothing to reflect on and **stop immediately**. Do not proceed to any further steps.
 
@@ -163,9 +163,3 @@ Wait for the user's reply before taking any action, unless this skill is running
 - Fewer high-quality findings beat many trivial ones
 - If the code is solid, say so. Not every reflection needs a long list of suggestions
 - Distinguish between "this is wrong" and "this could be different" - the user should know which findings are critical vs. optional
-
-### Early Exit
-
-- **No changes = stop.** If Step 1 finds nothing, tell the user and stop. Do not enter plan mode.
-- **No findings = stop.** If the three-lens assessment (Step 4) finds nothing actionable, report that the code is clean and stop at Step 5. Do not enter plan mode. Do not ask the user what to fix. Do not loop back to re-assess.
-- **Never self-trigger.** This skill runs once per invocation. It must never re-invoke itself or suggest running itself again as a next step.

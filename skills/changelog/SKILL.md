@@ -27,6 +27,8 @@ Collect the full picture of what changed:
 4. **Last changelog update** — If `CHANGELOG.md` exists, read it to find the most recent entry and its date/commit hash
 5. **Commit range** — Identify which commits are new since the last changelog entry. If no changelog exists, use all commits on the current branch
 
+Make sure not to add duplicate entries.
+
 If there are no uncommitted changes AND no new commits since the last changelog entry, inform the user there's nothing to log and **stop immediately**. Do not proceed to any further steps.
 
 ## Step 2: Classify Changes and Determine Version Bump
@@ -111,6 +113,8 @@ Keep README edits terse — document what changed, not prose. If no user-facing 
 
 ## Step 4: Present and Confirm
 
+**In YOLO mode, skip this step entirely** — apply all updates directly.
+
 Present the user with a summary of what will be written:
 
 1. **Changelog entry** — Show the drafted entry
@@ -124,8 +128,6 @@ Ask the user to confirm. Offer options:
 - Skip — no updates needed
 
 Wait for the user's reply before taking any action, unless this skill is running in an autonomous context or YOLO mode. In either case, proceed to apply all updates without asking.
-
-**In YOLO mode, skip this step entirely** — apply all updates directly.
 
 ## Step 5: Apply Updates
 
@@ -156,6 +158,7 @@ After applying, output a brief summary of what was updated.
 - When in doubt between patch and minor, prefer minor
 - If no version is tracked anywhere in the project, do not create one — just update the changelog
 - Always update ALL locations where the version appears
+- Make sure that if the changes are intended to be deployed through Github Actions, you check that the conditions for deployment are met (eg version bump in the right place)
 
 ### Early Exit
 

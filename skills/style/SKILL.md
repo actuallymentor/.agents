@@ -11,7 +11,6 @@ Review recent code changes for style alignment and elegance, then let the user c
 
 Before starting, check `echo $AGENT_AUTONOMY_MODE`. If it is set to `yolo`, this skill operates fully autonomously:
 
-- **Skip Step 3** (scope confirmation) — review all recent changes without asking
 - **Skip Step 7** (user choice) — apply all suggestions automatically
 - **Make autonomous decisions** — do not ask the user at any point
 - **Still respect Early Exit rules** — if there are no changes, no instruction file, or no findings, stop as normal

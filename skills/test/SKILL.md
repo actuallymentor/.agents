@@ -50,7 +50,7 @@ If there's only one test command, skip this step and run it directly.
 
 Run the identified test command using Bash:
 
-1. Run all test commands you identified sequentially, do not skip any
+1. Run all test commands selected in step 2 and run them
 2. Use verbose flags where available (e.g., `pytest -v`, `npm test -- --verbose`) for better output
 3. Capture both stdout and stderr
 
@@ -108,6 +108,6 @@ Ask the user what to do next. Offer these options:
 
 If the user picks specific ones, ask them to list the numbers. Then fix only those, reading and editing the relevant source files.
 
-After applying fixes, re-run the tests **once** to verify the fixes worked. If new failures appear, report them but do not attempt further fixes — let the user decide the next step. Do not loop.
+After applying fixes, re-run the tests **once** to verify the fixes worked. If new failures appear, report them to the user, do not loop unless in YOLO mode.
 
 Wait for the user's reply before taking any action, unless this skill is running in an autonomous context where the user has explicitly asked for you to work autonomously, or YOLO mode is active. In either case, proceed to fix all failures without asking for confirmation.

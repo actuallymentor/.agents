@@ -7,6 +7,8 @@ description: Keep the code and docs clean and up to date
 
 Parse your persistent memory files and polish and condense them.
 
+For each step below, if `echo $AGENT_AUTONOMY_MODE` is `yolo`, proceed with the updates automatically. If not, offer the user a summary of your findings and ask for confirmation before making any changes.
+
 ## Step 1: check that memory is up to date
 
 For the following files check if their content and references are still up to date and relevant. If not, update them accordingly:
@@ -19,11 +21,9 @@ For the following files check if their content and references are still up to da
 
 ## Step 2: consider research and updates
 
-Look at the memory system and the codeebase and ask yourself the following: "are there decisions that were made in the past that were based on information that might be outdated now?". For example, if we chose certain modules, apis, or versions because they were the best at the time but by now better versions or approaches might exist.
+Look at the memory system and the codebase and ask yourself the following: "are there decisions that were made in the past that were based on information that might be outdated now?". For example, if we chose certain modules, apis, or versions because they were the best at the time but by now better versions or approaches might exist.
 
 This step is explicitly NOT about updating dependency numbers or versions.
-
-If `echo $AGENT_AUTONOMY_MODE` is `yolo`, proceed with the updates automatically. If not, offer the user a summary of your findings and ask for confirmation before making any changes.
 
 ## Step 3: update dependencies
 
@@ -33,6 +33,13 @@ Check the projects for dependencies that make sense to update. Update them optim
 - dependencies that you expect might break things
 - high risk dependencies that probably require migrations
 
-## Step 4: Summarize activity
+## Step 4: audit documentation
+
+Read through documentation files like `README.md`, API docs, etc and make sure that:
+
+1. They still accurately reflect the current implementation
+2. They match the preferences of the user
+
+## Final Step: Summarize activity
 
 Show a condensed list of things you changed and why.

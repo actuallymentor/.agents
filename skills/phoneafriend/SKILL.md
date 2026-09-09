@@ -40,7 +40,7 @@ Example if you are codex and asking claude:
 Determine the available model for this level of review when calling the other LLM, example for a very complex problem:
 
 - When asking Claude, pass `--model best --effort high`.
-- When asking Codex, pass `--model gpt-5.6-sol -c 'model_reasoning_effort="xhigh"'`.
+- When asking Codex, pass `--model gpt-6-astra -c 'model_reasoning_effort="xhigh"'`.
 
 Note: codex is cheap, claude is expensive. When reviewing with codex, err on the side of high effort (xhigh is fine), when reviewing with claude be more conservative (`high` is the maximum).
 
@@ -48,17 +48,17 @@ Note: codex is cheap, claude is expensive. When reviewing with codex, err on the
 claude --model best --effort high -p "[base prompt]"
 # You wait for the response
 
-claude --model best --effort high -p --continue "Review the following commits for bugs and improvements, do not change anything, just report back: [list of commit hashes]"
+claude --model best --effort high -p "Review the following commits for bugs and improvements, do not change anything, just report back: [list of commit hashes]"
 # You will read the response
 ```
 
 Example if you are claude and asking codex:
 
 ```bash
-codex --model gpt-5.6-sol -c 'model_reasoning_effort="xhigh"' exec "[base prompt]"
+codex --model gpt-6-astra -c 'model_reasoning_effort="xhigh"' exec "[base prompt]"
 # You wait for the response
 
-codex --model gpt-5.6-sol -c 'model_reasoning_effort="xhigh"' exec "Review the following commits for bugs and improvements, do not change anything, just report back: [list of commit hashes]"
+codex --model gpt-6-astra -c 'model_reasoning_effort="xhigh"' exec "Review the following commits for bugs and improvements, do not change anything, just report back: [list of commit hashes]"
 # You will read the response
 ```
 
@@ -75,9 +75,3 @@ Ask the user if you should implement the worthwhile findings. In YOLO mode, you 
 ## Step 6: Enter plan mode and fix the findings
 
 For each finding you are addressing, create a task for it in the plan. Then execute the plan to fix the issues. After executing, ask the user if they want to run phoneafriend again to check the fixes. In YOLO mode you do not ask and just continue to run phoneafriend again, unless the last report had no issues of duplicate issues.
-
-### Early Exit
-
-- **No commits = stop.** If there are no commits to review in Step 2, say "I have no recent changes to ask about" and stop immediately. Do not proceed to Step 3.
-- **No findings = stop.** If the other LLM reports no issues or improvements worth addressing, say "The review found no issues or improvements worth addressing" and stop immediately. Do not proceed to Step 5 or Step 6.
-- **Duplicate findings = stop.** If the other LLM's report is identical to a previous report from a phoneafriend session in this conversation, say "The review did not find any new issues or improvements compared to the last review" and stop immediately. Do not proceed to Step 5 or Step 6. This prevents infinite loops of phoneafriend sessions without new findings.
