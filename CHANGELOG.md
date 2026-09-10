@@ -18,4 +18,5 @@
 
 ### Added
 
+- Add Theo de Raadt personality profile.
 - Add setup guidance and executable workflow regression checks.
