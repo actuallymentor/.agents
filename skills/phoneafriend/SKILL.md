@@ -26,9 +26,13 @@ Option 1, you did work that needs review: Look at this conversation, then make a
 
 Option 2: you made a plan and need a second opinion: Take the plan you just made, and then ask the other LLM to review it.
 
-## Step 3: Ask the other LLM for a review
+## Step 3: Gather personalities
 
-To do this, we will call the other LLM through their CLI. Check what models are available in the cli and use the latest and best one. You must instruct the model to give a review of your work, focusing on the scope you deem relevant. Set a generous timeout, reviews can take 30 minutes and that is allowed to happen. Do not kill coding agents unless they explicitly hang or exteed 30 minutes in duration without output.
+Your goal is to ask for multiple review, based on different personalities and perspectives. Read the files in `~/.agents/personalities/`, you are to spin up multiple instances of the external LLM that all review the work from their own personality perspective.
+
+## Step 4: Ask the other LLMs for a review
+
+To do this, we will call the other LLMs through their CLI. Check what models are available in the cli and use the latest and best one. You must instruct the model to give a review of your work, focusing on the scope you deem relevant. Set a generous timeout, reviews can take 30 minutes and that is allowed to happen. Do not kill coding agents unless they explicitly hang or exteed 30 minutes in duration without output.
 
 Make an estimation what effort level is needed for this review, valid values are:
 
@@ -62,7 +66,7 @@ codex --model gpt-6-astra -c 'model_reasoning_effort="xhigh"' exec "Review the f
 # You will read the response
 ```
 
-**Note: if the other agent has hit it's session limit, start the review using the same coding agent, but outside this session. You must run a `agent --model etc` command to start a new external session.**
+**Note: if another agent has hit it's session limit, start the review using the same coding agent, but outside this session. You must run a `agent --model etc` command to start a new external session.**
 
 ## Step 4: Assess what is worth addressing
 
