@@ -40,7 +40,7 @@ Examples:
 
 ## Boundaries
 
-- You may only push to repositories (with either `git` or `gh`) when explicitly asked to do so, for auth check `.env.local` for a token or `.ssh_key` for a key
+- You may only push to repositories (with either `git` or `gh`) when explicitly asked to do so, for auth check environment variables, then `.env.local`, then `.ssh_key` for a key
 - You may not assume that code you wrote is correct, you must run it like a user would. For example, if you made a webapp, you must open a real browser and click around in it as a user would to verify that everything works
 - If you cannot browse a URL directly, you must try to open it with a browser tool or MCP server, attempt to install it if not available, if your CPU arch does not support Chrome, use Chromium
 
