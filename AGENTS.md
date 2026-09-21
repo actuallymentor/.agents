@@ -30,11 +30,39 @@ Examples:
 
 ## Work style
 
-- Enter plan mode for any non-trivial task, for complex plans call $phoneafriend for a second opinion
+- Make a plan for any non-trivial task, for complex plans call $phoneafriend for a second opinion
 - Liberally use subagents for research, exploration, and parallel analysis
 - Err on the side of research and planning, including online browsing, assume your knowledge might be out of date
 - When `echo $AGENT_AUTONOMY_MODE` is `yolo`, skip all confirmations and operate fully autonomously, use best guesses when decisions need to be made
-- You are able and encouraged to change your effort if you run into issues. Use `babysit effort` to do this. Default effort: medium.
+
+==============================
+
+## Model and effort selection
+
+At any point when executing a task or delegating it to a sub-agent, you are able to and responsible for selecting the best model and effort level for the task you were given. To that end:
+
+- You are able and encouraged to change your own effort level. Use `babysit effort` to do this. Default effort: medium.
+- You should think about the model selection and effort level of the sub agents and external LLM CLIs you use
+- Select the model that you expect to successfully fulfill the task and post-edit checklist with the lowest expected total cost
+- If you realise that the model you chose cannot complete the task, or the task turns out to be more complex, escalate to a higher tier model
+- Your goal is to balance the quality of outcomes with the cost of completing the task
+
+Here's a non-exhaustive quick reference of models and their use cases:
+
+| Model @ effort | CLI | Work target | Cost |
+| -------------- | --- | ----------- | ---- |
+| gpt-6-astra @ medium | codex | complex, demanding work and planning | high |
+| gpt-5.6-sol | codex | highly capable model | medium |
+| gpt-5.6-terra | codex | grunt work | low |
+| fable 5 | claude | complex, demanding work and planning | very high |
+| opus 5 | claude | grunt work | medium |
+
+Available effort levels:
+
+- claude: `low`, `medium`, `high`, `xhigh`, `max`
+- codex: `low`, `medium`, `high`, `xhigh`, `max`
+
+Note on context efficiency: give workers focussed context, acceptance criteria, and boundaries.
 
 ==============================
 
@@ -72,15 +100,15 @@ Boundaries:
 
 ## Post-Edit Checklist
 
-**Every time you finish making edits, follow this checklist in order. Do not skip steps. Do not commit before completing steps 1-4.**
+**Every time you finish a task or milestone, follow this checklist in order. Do not skip steps. Do not commit before completing steps 0-4.**
 
-Note: if you only changed `.notes/` files, you skip the reflect and style steps.
+Exceptions: 1) if you only changed `.notes/` files or 2) the task was trivial, you skip the reflect, style, and phoneafriend steps
 
 0. **Handle persistent memory** — write relevant notes to `./.notes/` and update `MEMORY.md` with references to new notes and when to load them
 1. **Run the `reflect` skill** — review your changes for intent alignment, elegance, and bugs
 2. **Run the `style` skill** — review your changes for code style alignment
 3. **Run the `changelog` skill** — update CHANGELOG.md, version numbers, and README.md (skip if changes are purely internal with no user-facing impact)
-4. **Offer the `test` skill** — if the project has tests configured, offer to run them or in YOLO mode run them if you see fit
+4. **Run the `test` skill** — if the project has tests configured, run and handle relevant ones
 5. **Cleanup** - check if your work has left orphanes temporary or nonfunctional files. If so, delete them.
 6. **Commit** — if `echo $AGENT_AUTONOMY_MODE` is `yolo`, commit with a gitmoji message; otherwise suggest a commit command with message and ask for confirmation. Common [gitmoji](https://gitmoji.dev/): `✨ feature`, `🐛 bug`, `🔥 removal`, `📚 docs`, `♻️ refactor`, `🎨 style`, `✅ tests`
 7. **TL;DR:** - write a summary line in the format: I changed xyz in commits aaa, bbb, ccc.
@@ -112,4 +140,4 @@ Check for the existence of the `~/.agents/preferences` directory. If it exists, 
 
 **Readability Through Spacing**: Code needs room to breathe. Spacing makes structure visible at a glance.
 
-**Remember**: Code is read far more than it's written. Make it beautiful, make it breathe, make it obvious.
+**Beauty matters**: Code is read far more than it's written. Make it beautiful, make it breathe, make it obvious.

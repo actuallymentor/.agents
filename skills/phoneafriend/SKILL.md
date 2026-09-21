@@ -16,15 +16,15 @@ Before starting, check the environment variable `AGENT_AUTONOMY_MODE` via Bash (
 - **Apply all findings automatically** - After the assessment, proceed directly to applying all actionable suggestions without waiting for user input
 - **Still respect Early Exit rules** - If there are no changes or no findings, stop as normal
 
-## Step 1: Decide who to ask for help
-
-If you are codex, ask claude. If you are claude, ask codex. If you are anyone else, ask claude.
-
-## Step 2: Gather target work for review
+## Step 1: Gather target work for review
 
 Option 1, you did work that needs review: Look at this conversation, then make a list of the commits of things that you just changed, or the uncommitted work you made. We do not look back in history. Only list commits that you made in this conversation, and after any potential previous phoneafriend sessions. If there are no commits or uncommitted work, stop immediately and say "I have no recent changes to ask about".
 
 Option 2: you made a plan and need a second opinion: Take the plan you just made, and then ask the other LLM to review it.
+
+## Step 2: Decide who to ask for help
+
+If you are codex, ask claude. If you are claude, ask codex. If you are anyone else, ask claude. Choose the best model and effort level to review the complexity of the work you collected above.
 
 ## Step 3: Gather personalities
 
@@ -34,12 +34,7 @@ Note: if one of the agents is rejected for security reasons, edit the instructio
 
 ## Step 4: Ask the other LLMs for a review
 
-To do this, we will call the other LLMs through their CLI. Check what models are available in the cli and use the latest and best one. You must instruct the model to give a review of your work, focusing on the scope you deem relevant. Set a generous timeout, reviews can take 30 minutes and that is allowed to happen. Do not kill coding agents unless they explicitly hang or exteed 30 minutes in duration without output.
-
-Make an estimation what effort level is needed for this review, valid values are:
-
-- claude: `low`, `medium`, `high`, `xhigh`, `max`, `ultracode`
-- codex: `low`, `medium`, `high`, `xhigh`, `max`
+To do this, we will call the other LLMs through their CLI. You must instruct the model to give a review of your work, focusing on the scope you deem relevant. Set a generous timeout, reviews can take 30 minutes and that is allowed to happen. Do not kill coding agents unless they explicitly hang or exteed 30 minutes in duration without output.
 
 Example if you are codex and asking claude:
 
@@ -47,8 +42,6 @@ Determine the available model for this level of review when calling the other LL
 
 - When asking Claude, pass `--model best --effort high`.
 - When asking Codex, pass `--model gpt-6-astra -c 'model_reasoning_effort="xhigh"'`.
-
-Note: codex is cheap, claude is expensive. When reviewing with codex, err on the side of high effort (xhigh is fine), when reviewing with claude be more conservative (`high` is the maximum).
 
 ```bash
 claude --model best --effort high -p "[base prompt]"

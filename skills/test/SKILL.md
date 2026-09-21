@@ -13,7 +13,7 @@ Skill boundary: if this skill is run in the context of an autonomous run, where 
 
 Before starting, run `echo $AGENT_AUTONOMY_MODE` if it is set to `yolo`, this skill operates fully autonomously:
 
-- **Skip Step 2** (scope confirmation) — run all tests without asking
+- **Modify Step 2** (scope confirmation) — determine scope, but accept your decision without user interaction
 - **Skip Step 6** (user choice) — fix all failures automatically
 - **Make autonomous decisions** — do not ask the user at any point
 - **Still respect Early Exit rules** — if there are no tests or all tests pass, stop as normal
