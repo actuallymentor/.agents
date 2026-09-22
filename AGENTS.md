@@ -52,10 +52,10 @@ Here's a non-exhaustive quick reference of models and their use cases:
 | Model @ effort | CLI | Work target | Cost |
 | -------------- | --- | ----------- | ---- |
 | gpt-6-astra @ medium | codex | complex, demanding work and planning | high |
-| gpt-5.6-sol | codex | highly capable model | medium |
-| gpt-5.6-terra | codex | grunt work | low |
-| fable 5 | claude | complex, demanding work and planning | very high |
-| opus 5 | claude | grunt work | medium |
+| gpt-6-sol @ high | codex | highly capable model | cheap |
+| gpt-6-luna @ high | codex | grunt work | dirt cheap |
+| fable 5.1 @ low | claude | complex, demanding work and planning | very high |
+| opus 5.5 @ medium | claude | grunt work | medium |
 
 Available effort levels:
 
