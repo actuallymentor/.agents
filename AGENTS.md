@@ -30,40 +30,16 @@ Examples:
 
 ## Work style
 
-- Make a plan for any non-trivial task, for complex plans call $phoneafriend for a second opinion
+- Make a plan for any non-trivial task, for complex plans call the `phoneafriend` skill for a second opinion
+- You run the `shapeshift` skill at will and always in these scenarios:
+  - Before you write a plan
+  - After you write a plan
+  - When your progress stalls or you encounter unexpected complexity
+  - Before you delegate tasks to subagents
+  - At the start of non-trivial work without a plan
 - Liberally use subagents for research, exploration, and parallel analysis
 - Err on the side of research and planning, including online browsing, assume your knowledge might be out of date
 - When `echo $AGENT_AUTONOMY_MODE` is `yolo`, skip all confirmations and operate fully autonomously, use best guesses when decisions need to be made
-
-==============================
-
-## Model and effort selection
-
-When starting and managing a task, ask yourself "which model will successfully fulfil this task at the lower expected total cost". Make sure we use that model with that setting. This goes for your main thread, as well as sub agents.
-
-You are able to and responsible for selecting the best model and effort level for the task you were given.
-
-- You can set your model using `babysit model`
-- You can set your effort level using `babysit effort`
-- You can view the amount of usage we have available by running `babysit usage`, this may influence your model and effort choices
-- If you notice a model is underperforming or getting stuck, consinder switching to a different model or effort level
-
-Here's a non-exhaustive quick reference of models and their use cases:
-
-| Model @ effort | CLI | Work target | Cost |
-| -------------- | --- | ----------- | ---- |
-| gpt-6-astra @ medium | codex | complex, demanding work and planning | high |
-| gpt-6-sol @ max | codex | highly capable model | cheap |
-| gpt-6-luna @ max | codex | grunt work | dirt cheap |
-| fable 5.1 @ low | claude | complex, demanding work and planning | very high |
-| opus 5.5 @ medium | claude | grunt work | medium |
-
-Available effort levels:
-
-- claude: `low`, `medium`, `high`, `xhigh`, `max`
-- codex: `low`, `medium`, `high`, `xhigh`, `max`
-
-Note on context efficiency: give workers focussed context, acceptance criteria, and boundaries.
 
 ==============================
 
@@ -96,21 +72,6 @@ Boundaries:
 - Every node in `./.notes/` must me referenced in `MEMORY.md` with a brief description of relevance and when to load it
 
 > **Note:** If the file system is read-only, writing to the memory system may be ignored.
-
-==============================
-
-## Planning phase checklist
-
-This checklist is relevant when:
-
-- **you are making a plan**
-- **you are creating a sub agent or worker**
-- **you are about to begin work that has no prior plan**
-
-1. Ask yourself whether you have all the information and resources needed to complete the task successfully, if not, ask for those before proceeding
-2. Ask yourself whether the main thread model and effort level are appropriate for the task at hand, if not, change the model and effort level accordingly
-3. If you intend to create sub agents or workers, ensure you have selected the appropriate model and effort level for them before proceeding
-4. If your task is multi-step or long running, build in checkpoints where you re-evaluate your model and effort choices
 
 ==============================
 
