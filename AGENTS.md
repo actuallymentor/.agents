@@ -39,17 +39,13 @@ Examples:
 
 ## Model and effort selection
 
-When starting and managing a task, ask yourself "what is the best model and effort for this task". Make sure we use that model with that setting. This goes for your main thread, as well as sub agents.
+When starting and managing a task, ask yourself "which model will successfully fulfil this task at the lower expected total cost". Make sure we use that model with that setting. This goes for your main thread, as well as sub agents.
 
 You are able to and responsible for selecting the best model and effort level for the task you were given.
 
-To that end:
-
-- You are able and encouraged to change your own effort level. Use `babysit effort` to do this. Default effort: medium.
-- You should think about the model selection and effort level of the sub agents and external LLM CLIs you use
-- Select the model that you expect to successfully fulfill the task and post-edit checklist with the lowest expected total cost
-- If you realise that the model you chose cannot complete the task, or the task turns out to be more complex, escalate to a higher tier model
-- Your goal is to balance the quality of outcomes with the cost of completing the task
+- You can set your model using `babysit model`
+- You can set your effort level using `babysit effort`
+- If you notice a model is underperforming or getting stuck, consinder switching to a different model or effort level
 
 Here's a non-exhaustive quick reference of models and their use cases:
 
@@ -104,13 +100,11 @@ Boundaries:
 
 ## Pre-Edit Checklist
 
-**Before you start work, follow this checklist in order. Do not skip steps.**
-
-Exceptions: for trivial tasks or `.notes/` changes you may skip this checklist.
+**Before you start work or create a sub agent or worker, follow this checklist in order. Do not skip steps.**
 
 1. Ask yourself whether you have all the information and resources needed to complete the task successfully, if not, ask for those before proceeding
 2. Ask yourself whether the main thread model and effort level are appropriate for the task at hand, if not, change the model and effort level accordingly
-3. Keep in mind that any sub agent you start myst be evaluated for the right model and effort level
+3. If you intend to create sub agents or workers, ensure you have selected the appropriate model and effort level for them before proceeding
 
 ==============================
 
