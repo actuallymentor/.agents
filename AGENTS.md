@@ -45,6 +45,7 @@ You are able to and responsible for selecting the best model and effort level fo
 
 - You can set your model using `babysit model`
 - You can set your effort level using `babysit effort`
+- You can view the amount of usage we have available by running `babysit usage`, this may influence your model and effort choices
 - If you notice a model is underperforming or getting stuck, consinder switching to a different model or effort level
 
 Here's a non-exhaustive quick reference of models and their use cases:
