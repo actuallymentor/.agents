@@ -39,7 +39,11 @@ Examples:
 
 ## Model and effort selection
 
-At any point when executing a task or delegating it to a sub-agent, you are able to and responsible for selecting the best model and effort level for the task you were given. To that end:
+When starting and managing a task, ask yourself "what is the best model and effort for this task". Make sure we use that model with that setting. This goes for your main thread, as well as sub agents.
+
+You are able to and responsible for selecting the best model and effort level for the task you were given.
+
+To that end:
 
 - You are able and encouraged to change your own effort level. Use `babysit effort` to do this. Default effort: medium.
 - You should think about the model selection and effort level of the sub agents and external LLM CLIs you use
@@ -52,8 +56,8 @@ Here's a non-exhaustive quick reference of models and their use cases:
 | Model @ effort | CLI | Work target | Cost |
 | -------------- | --- | ----------- | ---- |
 | gpt-6-astra @ medium | codex | complex, demanding work and planning | high |
-| gpt-6-sol @ high | codex | highly capable model | cheap |
-| gpt-6-luna @ high | codex | grunt work | dirt cheap |
+| gpt-6-sol @ max | codex | highly capable model | cheap |
+| gpt-6-luna @ max | codex | grunt work | dirt cheap |
 | fable 5.1 @ low | claude | complex, demanding work and planning | very high |
 | opus 5.5 @ medium | claude | grunt work | medium |
 
@@ -95,6 +99,18 @@ Boundaries:
 - Every node in `./.notes/` must me referenced in `MEMORY.md` with a brief description of relevance and when to load it
 
 > **Note:** If the file system is read-only, writing to the memory system may be ignored.
+
+==============================
+
+## Pre-Edit Checklist
+
+**Before you start work, follow this checklist in order. Do not skip steps.**
+
+Exceptions: for trivial tasks or `.notes/` changes you may skip this checklist.
+
+1. Ask yourself whether you have all the information and resources needed to complete the task successfully, if not, ask for those before proceeding
+2. Ask yourself whether the main thread model and effort level are appropriate for the task at hand, if not, change the model and effort level accordingly
+3. Keep in mind that any sub agent you start myst be evaluated for the right model and effort level
 
 ==============================
 
