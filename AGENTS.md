@@ -99,13 +99,18 @@ Boundaries:
 
 ==============================
 
-## Pre-Edit Checklist
+## Planning phase checklist
 
-**Before you start work or create a sub agent or worker, follow this checklist in order. Do not skip steps.**
+This checklist is relevant when:
+
+- **you are making a plan**
+- **you are creating a sub agent or worker**
+- **you are about to begin work that has no prior plan**
 
 1. Ask yourself whether you have all the information and resources needed to complete the task successfully, if not, ask for those before proceeding
 2. Ask yourself whether the main thread model and effort level are appropriate for the task at hand, if not, change the model and effort level accordingly
 3. If you intend to create sub agents or workers, ensure you have selected the appropriate model and effort level for them before proceeding
+4. If your task is multi-step or long running, build in checkpoints where you re-evaluate your model and effort choices
 
 ==============================
 
