@@ -13,6 +13,10 @@ Depending on when this skill is called, you have slightly different jobs.
 
 Determine which of the options below is relevant to your current situation. It's important that you evaluate both your main thread, if you are going to use sub agents, to evaluate those one by one as well.
 
+Boundaries:
+
+- The actual consideration of what model to use must happen from Astra or Fable at medium effort, so run `babysit model` **before** considering the task at hand
+
 ### Option 1: you are making a plan
 
 Consider the complexity of the task you are planning for. Choose the best model/effort level. In a planning phase you may err upwards. If you set a high model/effort, make sure to rerun `shapeshift` after planning is done.
@@ -38,6 +42,11 @@ For subagents you have direct control over their model and effort level, so you 
 ==============================
 
 ## What model to choose when
+
+**Boundaries:**
+
+- Luna may only be used at max
+- Upgrading Astra/Fable above medium requires exceptional difficulty or justification
 
 Here's a non-exhaustive quick reference of models and their use cases:
 
