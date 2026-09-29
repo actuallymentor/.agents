@@ -61,7 +61,7 @@ codex --model gpt-6-astra -c 'model_reasoning_effort="xhigh"' exec "Review the f
 # You will read the response
 ```
 
-**Note: if another agent has hit it's session limit, start the review using the same coding agent, but outside this session. You must run a `agent --model etc` command to start a new external session.**
+**Note: if another agent has hit it's session limit, start a two prong review: one with the lower model family of the other coding agent (eg Opus instead of Fable) as well as a session by the current model provider's best model. Start the review using coding agent CLI, but outside this session. You must run a `agent --model etc` command to start a new external session.**
 
 ## Step 4: Assess what is worth addressing
 

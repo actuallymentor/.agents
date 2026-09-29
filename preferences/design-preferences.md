@@ -95,16 +95,6 @@ For new projects, prefer the listed fonts available through Google Fonts. Follow
 
 ---
 
-## Ethics
-
-- Ethics test: would the user regret the behavior your interface optimizes for? If yes, it's manipulation.
-- Never combine variable reward + low-friction repetition + infinite scroll + notification badges (= slot machine).
-- Never auto-play, auto-scroll, or remove natural stopping points without explicit opt-in.
-- Tie every sensory reward to a user-initiated, goal-directed action. Completion checkmark = good. Engineered notification badge = bad.
-- Pair completion moments with brief multimodal feedback (visual + haptic + audio, simultaneous). Make destructive-action feedback distinct and heavier.
-
----
-
 ## Web Implementation
 
 ### Units & Root Font Size

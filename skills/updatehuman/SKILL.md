@@ -16,8 +16,8 @@ Workflow:
 1. Summarize the activity in this session into 2-4 sentences
 2. Gather commits made in the codebase
 3. Gather items that human input is useful for (ie blockers you encountered or sanity checks on your decisions)
-
-Send a notification to the humam
+4. Format the notification message with newlines
+5. Send a notification to the humam
 
 ## Sending notifications
 

@@ -21,7 +21,7 @@ In order of importance, extract style preferences from the following files if th
 
 - `AGENTS.md`
 - LLM specific instruction files (e.g. `CLAUDE.md`, `.cursorrules`, `.github/copilot-instructions.md`)
-- General preferences in `~/.agents/preferences/js-style.md` (see `AGENTS.md` for other preference paths)
+- General javascript preferences in `~/.agents/preferences/js-style.md` (see `AGENTS.md` for other preference paths)
 
 Focus on:
 
@@ -44,7 +44,7 @@ If there are no changes to review, inform the user and stop.
 For each piece of changed code within the confirmed scope, consider:
 
 - **Readability** - Can a teammate scan this and understand it immediately?
-- **Idiomatic Patterns** - Does it follow the project's conventions from AGENTS.md?
+- **Idiomatic Patterns** - Does it follow the project's conventions?
 - **Elegance & Simplicity** - Is there a cleaner way to express the same thing?
 - **Consistency** - Does it match the style of surrounding code in the same file?
 
