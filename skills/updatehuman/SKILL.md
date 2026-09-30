@@ -21,7 +21,7 @@ Workflow:
 
 ## Sending notifications
 
-You will send a pushover notification using the following command:
+You will send a pushover notification using the following command. Making sure newlines are preserved for readability.
 
 ```bash
 # Where orgname/reponame is based on the git repo data, use directory name if git data is missing

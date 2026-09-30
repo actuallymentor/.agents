@@ -43,24 +43,16 @@ For subagents you have direct control over their model and effort level, so you 
 
 ## What model to choose when
 
+Run `babysit model` to see the up to date intelligence vs cost levels of the available models. Use that information to select the model for the task.
+
+You may use `--sort` to make more detailed comparisons of the models if needed.
+
 **Boundaries:**
 
-- Luna may only be used at max
+- Your primary consideration is selecting the right intelligence level for a task
+- Optimising cost is good, but not at the cost of task performance
+  - Cost optimisation is more important when models are expensive
+  - Super cheap models like Luna may only be used at max effort (as it costs only marginally more)
 - Upgrading Astra/Fable above medium requires exceptional difficulty or justification
-
-Here's a non-exhaustive quick reference of models and their use cases:
-
-| Model @ effort | CLI | Work target | Cost |
-| -------------- | --- | ----------- | ---- |
-| gpt-6-astra @ medium | codex | frontier model for complex, demanding work and planning | high |
-| gpt-6-sol @ high | codex | highly capable model for implementation of clear plans and tasks | cheap |
-| gpt-6-luna @ max | codex | fast and cheap model, grunt work | dirt cheap |
-| fable 5.1 @ low | claude | frontier model for complex, demanding work and planning | very high |
-| opus 5.5 @ high | claude | highly capable model for implementation of clear plans and tasks | medium |
-
-Allowed effort levels:
-
-- claude: `low`, `medium`, `high`, `xhigh`, `max`
-- codex: `low`, `medium`, `high`, `xhigh`, `max`
 
 Note on context efficiency: give workers focussed context, acceptance criteria, and boundaries.

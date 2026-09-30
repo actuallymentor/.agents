@@ -24,7 +24,11 @@ Option 2: you made a plan and need a second opinion: Take the plan you just made
 
 ## Step 2: Decide who to ask for help
 
-If you are codex, ask claude. If you are claude, ask codex. If you are anyone else, ask claude. Choose the best model and effort level to review the complexity of the work you collected above.
+Run `babysit model` to list model options and their intelligence levels.
+
+- If you are codex, ask claude. If you are claude, ask codex
+- choose the best model and effort level to review the complexity of the work you collected above
+- If your model of choice is unavailable, choose another model
 
 ## Step 3: Gather personalities
 
