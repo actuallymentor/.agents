@@ -10,6 +10,7 @@
 
 ### Changed
 
+- Split design preferences into visual rules and technical defaults.
 - Restore skills and AGENTS.md to `989ebe0`, preserving `9ca0e93` tone, effort, auth, and local-only prefactor changes.
 - Remove notification checks for the reverted implementation.
 - Clarify simplicity, comment intent, and syntax exceptions in style guidance.
@@ -18,5 +19,6 @@
 
 ### Added
 
+- Add mentordesign workflow for UI/UX review and alignment.
 - Add Theo de Raadt personality profile.
 - Add setup guidance and executable workflow regression checks.

@@ -20,6 +20,10 @@ bash symlink.sh /path/to/agent-config /path/to/claude-config
 
 The script creates the destination directory, preserves correct links on reruns, and refuses conflicting files, directories, or links. It does not require changing `CODEX_HOME`.
 
+## Design guidance
+
+Read [visual preferences](preferences/visual-design-preferences.md) for UX rules and [technical preferences](preferences/technical-design-preferences.md) for tokens and dimensions. Use [mentordesign](skills/mentordesign/SKILL.md) to audit or align an existing interface.
+
 ## Verification
 
 ```bash
