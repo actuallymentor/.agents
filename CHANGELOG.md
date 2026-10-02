@@ -10,6 +10,8 @@
 
 ### Changed
 
+- Extend design preferences with responsive website composition and menus.
+- Replace mentordesign overview with a sectioned, rule-driven audit checklist.
 - Split design preferences into visual rules and technical defaults.
 - Restore skills and AGENTS.md to `989ebe0`, preserving `9ca0e93` tone, effort, auth, and local-only prefactor changes.
 - Remove notification checks for the reverted implementation.

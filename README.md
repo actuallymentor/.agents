@@ -22,7 +22,7 @@ The script creates the destination directory, preserves correct links on reruns,
 
 ## Design guidance
 
-Read [visual preferences](preferences/visual-design-preferences.md) for UX rules and [technical preferences](preferences/technical-design-preferences.md) for tokens and dimensions. Use [mentordesign](skills/mentordesign/SKILL.md) to audit or align an existing interface.
+Read [visual preferences](preferences/visual-design-preferences.md) for app/website UX rules and [technical preferences](preferences/technical-design-preferences.md) for tokens and dimensions. Use [mentordesign](skills/mentordesign/SKILL.md) for a sectioned audit checklist: inventory components, verify current rules and interactions, fix within scope, and record coverage.
 
 ## Verification
 

@@ -42,6 +42,15 @@ Pair with [visual rules](visual-design-preferences.md). **Defaults marked “sta
 - Support overrides: line-height 1.5, paragraph spacing 2em, letter spacing .12em, word spacing .16em; no lost content/actions.
 - Use `prefers-color-scheme` initially; remembered manual overrides remain a project decision.
 
+## Website layout
+
+- Reuse the palette, fonts and controls above. Hero type scales separately from the functional-heading default; exact website sizes remain unset.
+- Desktop sections: alternating text/artwork columns within a shared content width. Mobile: one column; keep semantic reading order independent of visual alternation.
+- Separators: thin, subtle, full **content** width across both columns; align with outer content margins. Section padding is generous; internal text gaps stay tighter.
+- Mobile hero artwork: inset, compact; preserve aspect ratio and avoid stretching. Adapt artwork to the available width.
+- Menu overlay: full-screen mobile / right-side panel desktop. Apply focus management, Escape/close, focus return and background scroll control.
+- Breakpoints, column ratios, section padding, separator token, drawer width and menu animation are project choices; rendered examples did not establish exact values.
+
 ## Motion
 
 | Effect | Timing and amplitude |

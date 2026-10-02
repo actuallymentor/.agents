@@ -1,6 +1,6 @@
 # Visual design preferences
 
-Mobile webapps, also used on desktop. Pair with [technical values](technical-design-preferences.md). Explicit project requests override these defaults.
+Apps and websites, mobile and desktop. Pair with [technical values](technical-design-preferences.md). Explicit project requests override these defaults. App navigation and website composition have separate defaults below.
 
 ## Philosophy
 
@@ -10,14 +10,27 @@ Mobile webapps, also used on desktop. Pair with [technical values](technical-des
 - Consistent alignment, grouping and landmarks. Keep labels close to their fields; related items closer than unrelated groups.
 - Use size, spacing and muted supporting text before boldness. Upright body text; short italic emphasis only.
 
-## Surfaces and navigation
+## Surfaces
 
 - Very light gray page, white content; Solarized-style deep-blue dark surfaces. Follow device theme initially.
 - Keep the exact brand blue central; shades support hover/state. Avoid large permanent colored fills.
+- Actionable rows: subtle full-row hover tint. Inline interactive text: color + underline.
+
+## App navigation
+
 - Mobile: compact cards with details visible; frequent destinations in icon-only bottom tabs. Active icon + top-edge line, no filled active pill.
 - Secondary settings/docs/help: top-right hamburger. Subtle top-right language switcher.
 - Desktop: useful content width; top navigation with icon, text and active underline. Tables where appropriate.
-- Actionable rows: subtle full-row hover tint. Inline interactive text: color + underline.
+
+## Websites
+
+- Hero: split text/artwork on desktop; centered introduction with compact inset artwork on mobile. Subsequent reading is left-aligned.
+- Prefer restrained abstract artwork for this direction. Phone mockups were explored; no general ban on product imagery or photography.
+- Open sections with clear separation; avoid repetitive card containers that feel cookie cutter.
+- Desktop body: alternate text/artwork sides. Mobile: stack sections with consistent reading order.
+- Thin separators span the full content width on both devices. Generous space above/below; keep each text group together. Prefer these over short accent marks for this composition.
+- Open menu: full-screen on mobile, right-side panel on desktop; top-right trigger/close.
+- Footer surface and which desktop links stay visible in the header remain undecided.
 
 ## Buttons and icons
 
@@ -63,5 +76,3 @@ Mobile webapps, also used on desktop. Pair with [technical values](technical-des
 - Preserve keyboard access, focus, text resizing and user font/spacing overrides. Provide text-size controls. No hover-only essentials.
 - Feedback is immediate and honest: no invented progress or artificial waits.
 - Sound only where expected; rare, short, recognizable, synchronized. Haptics: meaningful crisp taps. Independent sound/haptics off controls.
-
-[Approved examples and decision history](/Users/mentor/Documents/Codex/2026-09-30/you-and-i-are-going-to/outputs/huisstijl-design-brief.md)
