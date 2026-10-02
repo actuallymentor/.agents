@@ -34,7 +34,7 @@ Apps and websites, mobile and desktop. Pair with [technical values](technical-de
 
 ## Buttons and icons
 
-- Small pill buttons with larger invisible, non-overlapping tap areas. Primary: brand blue + white text; secondary: quiet outline.
+- Small pill buttons with larger invisible, non-overlapping tap areas. Primary: solid brand blue + white text; secondary: quiet outline. No static button gradients; keep the animated sheen.
 - Primary actions retain labels. Compact item actions expand from icon to icon + label on hover/focus; neighbors may move aside.
 - Touch long-press reveals the label without activating; a separate tap activates. Keep consequential-action confirmation.
 - Fine Lucide icons on actions and details, not content headings. Detail icons match their labels' color.
@@ -69,9 +69,19 @@ Apps and websites, mobile and desktop. Pair with [technical values](technical-de
 - Charts: coordinated colors, draw on load; keep values hidden until a nearby hover/tap tooltip, unless the task needs persistent labels.
 - Optional skippable explanatory tour; no practice tasks or real-data creation.
 
+## Animated artwork
+
+- Prefer animated illustrations where artwork adds value, throughout the page rather than only in the hero. Keep functional UI restrained.
+- Motion should be noticeable but gentle; combine movement with gradual shade changes. Drift, flowing highlights and organic sway suit different scenes.
+- Default to seamless continuous loops with independent, overlapping rhythms; avoid synchronized movement of every element.
+- The full color palette is available, not just blue shades. Keep the overall scene calm; avoid overwhelming color or competing motion.
+- Preserve reading comfort and stable layout. Artwork supports the content; it does not delay useful information or demand interaction.
+- Provide a composed static alternative for reduced motion/loading failure; pause offscreen and in background tabs.
+
 ## Motion and inclusive use
 
 - Gentle lift/press, modal rise/fade, navigation crossfade, short stagger for arriving items. No bounce or exaggerated travel.
+- Put expressive motion mainly in artwork. Tested section reveals felt too quick; their replacement timing remains undecided.
 - Repeat a narrow sheen on the next important pending action; stop during saving/after completion. Respect reduced motion.
 - Preserve keyboard access, focus, text resizing and user font/spacing overrides. Provide text-size controls. No hover-only essentials.
 - Feedback is immediate and honest: no invented progress or artificial waits.

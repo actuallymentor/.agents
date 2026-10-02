@@ -67,6 +67,7 @@ Keep a compact ledger; do not mark whole categories complete from one screenshot
 - [ ] Compare face height, horizontal padding, radius, label size, icon size and icon gap with current button specifications.
 - [ ] Measure effective pointer/touch targets separately from visible faces. Check invisible padding does not overlap neighboring targets or intercept unrelated clicks.
 - [ ] Check primary/secondary hierarchy, filled/outline treatments and clear labels. Keep primary actions labeled; avoid several equally dominant actions.
+- [ ] Check filled buttons retain the specified solid base; remove static gradients while preserving approved state-dependent sheen.
 - [ ] Exercise hover, focus, press, disabled and loading states. Check lift/press behavior, stable dimensions and feedback for every actionable surface.
 - [ ] Check inline links use the specified color/underline treatment. Verify destinations, keyboard activation and native link/button semantics; remove clickable non-semantic wrappers.
 - [ ] Inspect compact expanding actions: icon-only rest state, label on hover/focus, graceful neighboring movement and no clipping or target collision.
@@ -155,17 +156,33 @@ Keep a compact ledger; do not mark whole categories complete from one screenshot
 - [ ] Test nearby hover/tap values, touch persistence/dismissal and keyboard-accessible equivalents. Avoid persistent value clutter unless the task requires it.
 - [ ] Check resizing, long labels, missing/zero values and many series. Preserve legibility without clipped axes, overlapping labels or color-only meaning.
 
-## 16. Animation and interaction timing
+## 16. Animated artwork: opportunities and execution
+
+- [ ] Inventory existing illustrations and decorative assets by route/section; distinguish them from icons, controls, charts and informative images.
+- [ ] Walk every page for useful additions: heroes, explanatory sections, onboarding, empty states and quiet transitions. Look beyond places that already contain artwork.
+- [ ] For each candidate, record location, content purpose, proposed subject/motion and likely benefit. Prefer additions that explain a concept or create relevant atmosphere; do not fill space by default.
+- [ ] Assess whether to animate an existing asset, add new artwork or leave the area quiet. Check reading density, primary actions and nearby motion before recommending placement.
+- [ ] Include suitable body sections, not just heroes. Review the whole viewport/page for cumulative motion and color; several independent illustrations must remain calm together.
+- [ ] In review mode, report concrete opportunities alongside violations. In implementation mode, create suitable artwork within scope and preview it in the real layout.
+- [ ] Check perceptible but gentle movement plus gradual shade changes against current preferences. Use the full allowed palette without treating new artwork hues as functional UI tokens.
+- [ ] Watch complete cycles: seamless continuous loops, independent periods/phases, no synchronized reset, flashing, abrupt hue jumps or unnecessarily long quiet pauses.
+- [ ] Check artwork remains decorative: no required hover/click, fake status/progress or obstruction of text/actions. Hide purely decorative assets from assistive technology; describe meaningful imagery.
+- [ ] Verify static first render, reduced-motion and load-failure alternatives. Reserve dimensions; inspect responsive cropping, both themes and nearby content for layout shift.
+- [ ] Test offscreen/background pause, smooth resume and cleanup after navigation. Check CPU/rendering cost, asset/runtime load and smoothness with several illustrations on mobile.
+- [ ] Compare animated and static versions in context. Record why each proposed addition helps, or why leaving it static/absent better supports the task.
+
+## 17. Animation and interaction timing
 
 - [ ] Inventory CSS transitions/keyframes, animation libraries, SVG/canvas loops, scroll effects and interaction timers, including third-party defaults.
 - [ ] Compare duration, easing, distance, scale, stagger and repeat interval with current motion specifications. Measure repeating cycles start-to-start; distinguish explicitly tuned values from starting points.
+- [ ] Identify retired/rejected timing defaults and unresolved trials in the current preferences. Do not reuse them as approved timings or slow functional feedback to match decorative artwork.
 - [ ] Exercise hover/press, modal enter/exit, navigation, content arrival, icon expansion, banner removal, chart draw and skeleton motion wherever present.
 - [ ] Check pending-action sheen starts under the specified conditions, repeats gently, resets while typing and stops while saving/clean or when the document is hidden.
 - [ ] Remove unintended bounce, exaggerated travel, competing loops and excessive stagger. Do not infer website drawer timing from unrelated modal specimens.
 - [ ] Toggle reduced motion; verify necessary state changes remain understandable without decorative movement. No content may depend on an animation completing to become usable.
 - [ ] Test rapid open/close, repeated taps, route changes and interrupted requests. Check cleanup, final states and absence of stranded overlays or flashing content.
 
-## 17. Accessibility and responsive behavior
+## 18. Accessibility and responsive behavior
 
 - [ ] Complete primary tasks with keyboard only: tab order, visible focus, activation, Escape and return focus. Check modal focus containment and background inertness.
 - [ ] Inspect accessible names, roles, expanded/selected/disabled states, landmarks and live announcements. Use assistive-technology checks where available; avoid announcing every animation frame.
@@ -174,13 +191,13 @@ Keep a compact ledger; do not mark whole categories complete from one screenshot
 - [ ] Test forced colors and retained system focus indication. Verify errors, active states and chart meaning survive removal of color cues.
 - [ ] Exercise touch gestures on an available real touch device, including long-press and scroll cancellation. Label emulation-only coverage explicitly.
 
-## 18. Optional sound and haptics
+## 19. Optional sound and haptics
 
 - [ ] If present, inventory each cue and its triggering event. Check rarity, meaning, duration, synchronization and current technical guidance.
 - [ ] Check independent off controls and a complete silent experience. Do not add sound/haptics merely to satisfy this section.
 - [ ] Verify native presets on supported devices; do not assume equivalent intensity across platforms. Mark unavailable-device checks unverified.
 
-## 19. Fix and verify
+## 20. Fix and verify
 
 - [ ] In review-only mode, report findings without editing. For alignment, prioritize broken tasks, unclear state and accessibility before visual polish; implement within the requested scope.
 - [ ] Fix shared tokens/components first, then local exceptions. Check all consumers for regressions; avoid framework swaps and unrelated redesigns.

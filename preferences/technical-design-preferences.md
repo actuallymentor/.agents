@@ -11,7 +11,7 @@ Pair with [visual rules](visual-design-preferences.md). **Defaults marked “sta
 | Dark page / raised surface | `#002b36` / `#073642` |
 | Light text / muted¹ | `#1a1a2e` / `#6b7280` |
 | Dark text / muted¹ | `#e6ecf0` / `#aab6c1` |
-| Primary button | Accent fill, white text |
+| Primary button | Solid accent fill, white text; no static gradient |
 | Approved darker fallback | `#376675`, white text |
 | Chart pairing | Accent + coral `#e07c5a` |
 
@@ -61,7 +61,7 @@ Pair with [visual rules](visual-design-preferences.md). **Defaults marked “sta
 | Hover / press¹ | 160ms; lift 1px, press scale .985 |
 | Unsaved banner removal¹ | 200ms fade + collapse |
 | Navigation¹ | 280ms moving indicator + crossfade; no slide |
-| Content arrival¹ | 320ms; 4px rise + fade, 60ms stagger |
+| Content arrival | Retune per context: 320ms section reveals felt too quick; 700ms trial not approved |
 | Icon-label expansion¹ | 240ms; touch hold 450ms |
 | Skeleton sweep¹ | 1800ms cycle |
 
@@ -70,6 +70,15 @@ Pair with [visual rules](visual-design-preferences.md). **Defaults marked “sta
 - Modal enter easing: `cubic-bezier(.2,.8,.2,1)`; exit `ease-in`.
 - Sheen¹: 45% width, white peak 26%, −18° skew; start ~800ms after typing pauses. Reset while typing; stop when saving/clean; pause in hidden documents.
 - Honor `prefers-reduced-motion`; cap stagger across long lists. Demo request delays are not production minimums.
+
+## Animated artwork
+
+- Continuous, seamless loops; vary element periods/phases for independent rhythms. Choose duration/amplitude per scene; demo timings are not fixed tokens.
+- Animate transforms and gradual color/shade changes. Broader artwork colors do not replace functional UI palette tokens or imply approval of button gradients.
+- Pause when offscreen or document-hidden; resume without a jump. Clean up animation work on unmount/navigation.
+- Respect `prefers-reduced-motion`; supply a deliberate static composition. Show it immediately while animation loads or if it fails.
+- Reserve artwork dimensions/aspect ratio; adapt composition to viewport/theme. Avoid clipping, layout shift and delayed access to content.
+- Choose a lightweight implementation suited to the asset and existing stack; no mandatory animation library. Check asset/runtime cost and smoothness on mobile with several visible illustrations.
 
 ## Behavior safeguards
 
