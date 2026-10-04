@@ -15,7 +15,8 @@ Determine which of the options below is relevant to your current situation. It's
 
 Boundaries:
 
-- The actual consideration of what model to use must happen from Astra or Fable at medium effort, so run `babysit model` **before** considering the task at hand
+- The actual consideration of what model and effort to use must happen from Astra or Fable at medium effort, so run `babysit model` **before** considering the task at hand
+- Your decision should keep in mind that model availability is limited by usage limits, so run `babysit usage` to check the current limits before finalizing your choice
 
 ### Option 1: you are making a plan
 
