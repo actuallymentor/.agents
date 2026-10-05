@@ -74,6 +74,8 @@ Pair with [visual rules](visual-design-preferences.md). **Defaults marked “sta
 ## Animated artwork
 
 - Continuous, seamless loops; vary element periods/phases for independent rhythms. Choose duration/amplitude per scene; demo timings are not fixed tokens.
+- Tune noticeability at actual mobile/desktop render sizes, in both themes. Account for moving-element size, on-screen travel, speed, opacity, background contrast and the difference between animated shades; source SVG units alone are insufficient.
+- If motion is hard to notice in normal viewing, adjust amplitude, timing, scale or color separation and recheck the whole scene. Subtle must not mean imperceptible; retain reduced-motion behavior and avoid overwhelming effects.
 - Animate transforms and gradual color/shade changes. Broader artwork colors do not replace functional UI palette tokens or imply approval of button gradients.
 - Pause when offscreen or document-hidden; resume without a jump. Clean up animation work on unmount/navigation.
 - Respect `prefers-reduced-motion`; supply a deliberate static composition. Show it immediately while animation loads or if it fails.

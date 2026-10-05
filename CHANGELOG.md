@@ -10,6 +10,7 @@
 
 ### Changed
 
+- Require noticeable animation; audit rendered size, color and context.
 - Record animated artwork preferences and audit opportunities for additions.
 - Keep button fills solid; retire the rejected section-reveal timing default.
 - Extend design preferences with responsive website composition and menus.

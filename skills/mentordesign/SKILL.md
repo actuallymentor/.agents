@@ -164,7 +164,9 @@ Keep a compact ledger; do not mark whole categories complete from one screenshot
 - [ ] Assess whether to animate an existing asset, add new artwork or leave the area quiet. Check reading density, primary actions and nearby motion before recommending placement.
 - [ ] Include suitable body sections, not just heroes. Review the whole viewport/page for cumulative motion and color; several independent illustrations must remain calm together.
 - [ ] In review mode, report concrete opportunities alongside violations. In implementation mode, create suitable artwork within scope and preview it in the real layout.
-- [ ] Check perceptible but gentle movement plus gradual shade changes against current preferences. Use the full allowed palette without treating new artwork hues as functional UI tokens.
+- [ ] Check animation is subtle but definitely noticeable during normal viewing, without staring, zooming in or comparing frames. Use movement and shade changes; keep broader artwork colors separate from functional UI tokens.
+- [ ] Inspect each animation at its actual mobile/desktop size in both themes and beside real content. Check moving-element size, on-screen travel/speed, opacity, background contrast and shade separation; an enlarged isolated preview is not sufficient.
+- [ ] Where motion disappears at small sizes or against similar colors, tune amplitude, timing, scale or shade contrast. Replay in context and confirm the improvement remains calm alongside other animations; preserve reduced-motion alternatives.
 - [ ] Watch complete cycles: seamless continuous loops, independent periods/phases, no synchronized reset, flashing, abrupt hue jumps or unnecessarily long quiet pauses.
 - [ ] Check artwork remains decorative: no required hover/click, fake status/progress or obstruction of text/actions. Hide purely decorative assets from assistive technology; describe meaningful imagery.
 - [ ] Verify static first render, reduced-motion and load-failure alternatives. Reserve dimensions; inspect responsive cropping, both themes and nearby content for layout shift.

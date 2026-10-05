@@ -72,7 +72,8 @@ Apps and websites, mobile and desktop. Pair with [technical values](technical-de
 ## Animated artwork
 
 - Prefer animated illustrations where artwork adds value, throughout the page rather than only in the hero. Keep functional UI restrained.
-- Motion should be noticeable but gentle; combine movement with gradual shade changes. Drift, flowing highlights and organic sway suit different scenes.
+- Animation must be subtle but **definitely noticeable** during normal viewing, without staring or comparing frames. Combine movement with gradual shade changes; drift, flowing highlights and organic sway suit different scenes.
+- Judge visibility at the actual rendered size and in context. Small artwork, low-contrast colors or faint shade changes can hide motion; strengthen the effect while keeping the overall scene calm.
 - Default to seamless continuous loops with independent, overlapping rhythms; avoid synchronized movement of every element.
 - The full color palette is available, not just blue shades. Keep the overall scene calm; avoid overwhelming color or competing motion.
 - Preserve reading comfort and stable layout. Artwork supports the content; it does not delay useful information or demand interaction.
