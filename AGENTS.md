@@ -108,6 +108,8 @@ Check for the existence of the `~/.agents/preferences` directory. If it exists, 
 | `~/.agents/preferences/visual-design-preferences.md` | When working on UI/UX, read and apply visual and interaction preferences |
 | `~/.agents/preferences/technical-design-preferences.md` | When implementing or reviewing UI/UX, read tokens, dimensions and motion defaults |
 | `~/.agents/preferences/testing-preferences.md` | When writing or running tests, read and apply relevant testing preferences |
+| `~/.agents/preferences/android-development.md` | When developing for Android devices, follow the specified Android development preferences |
+
 
 ==============================
 
