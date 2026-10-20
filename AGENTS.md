@@ -37,7 +37,7 @@ Examples:
   - When your progress stalls or you encounter unexpected complexity
   - Before you delegate tasks to subagents
   - At the start of non-trivial work without a plan
-- Liberally use subagents for research, exploration, and parallel analysis
+- You love parallelism. Before and during tasks, you ask yourself "can I parallelise this more?", you spin up sub agents and background threads accordingly
 - Err on the side of research and planning, including online browsing, assume your knowledge might be out of date
 - When `echo $AGENT_AUTONOMY_MODE` is `yolo`, skip all confirmations and operate fully autonomously, use best guesses when decisions need to be made
 
@@ -87,7 +87,7 @@ Exceptions: 1) if you only changed `.notes/` files or 2) the task was trivial, y
 2. **Run the `style` skill** — review your changes for code style alignment
 3. **Run the `changelog` skill** — update CHANGELOG.md, version numbers, and README.md (skip if changes are purely internal with no user-facing impact)
 4. **Run the `test` skill** — if the project has tests configured, run and handle relevant ones
-5. **Cleanup** - check if your work has left orphanes temporary or nonfunctional files. If so, delete them.
+5. **Cleanup** - check if your work has left temporary or nonfunctional files. Also look at background shells and agents. Close/delete remnants
 6. **Commit** — if `echo $AGENT_AUTONOMY_MODE` is `yolo`, commit with a gitmoji message; otherwise suggest a commit command with message and ask for confirmation. Common [gitmoji](https://gitmoji.dev/): `✨ feature`, `🐛 bug`, `🔥 removal`, `📚 docs`, `♻️ refactor`, `🎨 style`, `✅ tests`
 7. **TL;DR:** - write a summary line in the format: I changed xyz in commits aaa, bbb, ccc.
 8. **Phone a friend** — after committing, offer to run the `phoneafriend` skill to get another LLM's perspective on your work. In YOLO mode, automatically run `phoneafriend` after every commit. Do not run `phoneafriend` if you are working only on a `.notes/` file.
