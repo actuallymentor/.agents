@@ -14,6 +14,7 @@ Look at the folder you are in, see what you have access to the is relevant to fi
 - Deployments of this application that you can get the logs from through SSH
 - Diagnostics services like Sentry that capture application behaviour data
 - UX related tooling that show us how users use the app, something like Hotjar
+- Github issues opened by users or other LLM agents
 
 Make a list of these sources and how to access them.
 
