@@ -32,6 +32,8 @@ Evaluate whether the model and effort you are operating at is still appropriate.
 
 ## How to set model and effort level
 
+Boundary: run `babysit mode | grep -q container` to check if you are in a babysit container, if not, you are not able to set your own model/effort and this skill only applies to subagents you create
+
 If available, use the `babysit` cli:
 
 - `babysit model` to list options

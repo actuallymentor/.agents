@@ -22,11 +22,13 @@ Make a list of these sources and how to access them.
 
 Access the data sources you found, and find issues. You may look at things like errors in the logs, performance metrics, and so forth. Make a list of things that you could address.
 
-Make sure you check the repository issue and PR list, if any of the things you identified are duplicates of existing issues, your goal is not to open a new pull request but to ammend the open one if needed so it captures the overarching issue.  Also look at closed PRs that might have fixed this issue.
+Make sure you check the repository issue and PR list, if any of the things you identified are duplicates of existing work, your goal is not to open a new pull request but to ammend the open one if needed so it captures the overarching issue.  Also look at closed PRs that might have fixed this issue.
 
 ## Step 3: create feature branches and PRs with fixes
 
-For each issue, create a feature branch that you use to open a PR on the main repository. Work in parallel as much as possible. Your priorities when fixing issues are to make sure that you find the root cause of the issue. Do not monkeypatch things. Find the root cause and implement a structural fix.
+For each problem you find, create a feature branch that you use to open a PR on the main repository, PR description describes the problem you found and the evidence for it. Work in parallel as much as possible. Your priorities when fixing issues are to make sure that you find the root cause of the issue. Do not monkeypatch things. Find the root cause and implement a structural fix.
+
+====
 
 Boundaries:
 

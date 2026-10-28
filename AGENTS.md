@@ -78,6 +78,21 @@ Boundaries:
 
 ## Post-Edit Checklist
 
+Your post-edit checklist depends on your identity. Pick the right one and ignore the others.
+
+### You are a desktop app
+
+If you are a desktop or computer use app like Codex, follow this.
+
+0. **Handle persistent memory** — write relevant notes to `./.notes/` and update `MEMORY.md` with references to new notes and when to load them
+1. **Reflect on your work completion** - did you actually fulfill the user request or did you forget a part? Do missing parts
+2. **Cleanup** - check if your work has left temporary or nonfunctional files. Also look at background shells and agents. Close/delete remnants
+3. **TL;DR:** - write a summary line designed to be read by the user at a glance
+
+### You are a coding agent
+
+If you are a command line coding agent like claude, codex cli, or babysit, follow this.
+
 **Every time you finish a task or milestone, follow this checklist in order. Do not skip steps. Do not commit before completing steps 0-4.**
 
 Exceptions: 1) if you only changed `.notes/` files or 2) the task was trivial, you skip the reflect, style, and phoneafriend steps
@@ -109,7 +124,7 @@ Check for the existence of the `~/.agents/preferences` directory. If it exists, 
 | `~/.agents/preferences/technical-design-preferences.md` | When implementing or reviewing UI/UX, read tokens, dimensions and motion defaults |
 | `~/.agents/preferences/testing-preferences.md` | When writing or running tests, read and apply relevant testing preferences |
 | `~/.agents/preferences/android-development.md` | When developing for Android devices, follow the specified Android development preferences |
-
+| `~/.agents/preferences/ios-development.md` | When developing for iOS devices, follow the specified iOS development preferences |
 
 ==============================
 
