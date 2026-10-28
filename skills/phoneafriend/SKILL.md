@@ -38,7 +38,7 @@ Note: if one of the agents is rejected for security reasons, edit the instructio
 
 ## Step 4: Ask the other LLMs for a review
 
-To do this, we will call the other LLMs through their CLI. You must instruct the model to give a review of your work, focusing on the scope you deem relevant. Set a generous timeout, reviews can take 30 minutes and that is allowed to happen. Do not kill coding agents unless they explicitly hang or exteed 30 minutes in duration without output.
+To do this, we will call the other LLMs through their CLI. You must instruct the model to give a review of your work, focusing on the scope you deem relevant. Set a generous timeout, reviews can take 30 minutes and that is allowed to happen. Do not kill coding agents unless they explicitly hang or exteed 30 minutes in duration without output. Note: always pass `--sandbox danger-full-access` to codex, otherwise it fails in docker containers.
 
 Example if you are codex and asking claude:
 
