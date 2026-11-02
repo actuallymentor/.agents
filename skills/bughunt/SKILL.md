@@ -34,6 +34,10 @@ For Github issues, your boundaries are:
 
 For each problem you find, create a feature branch that you use to open a PR on the main repository, PR description describes the problem you found and the evidence for it. Work in parallel as much as possible. Your priorities when fixing issues are to make sure that you find the root cause of the issue. Do not monkeypatch things. Find the root cause and implement a structural fix.
 
+Boundaries:
+
+1. If there are decisions about tradeoffs to be made, keep the PR in draft mode and leave a comment asking what we want to do. Give the options with upsides, downsides, and your recommendation
+
 ====
 
 Boundaries:
