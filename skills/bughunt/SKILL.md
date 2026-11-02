@@ -24,6 +24,12 @@ Access the data sources you found, and find issues. You may look at things like 
 
 Make sure you check the repository issue and PR list, if any of the things you identified are duplicates of existing work, your goal is not to open a new pull request but to ammend the open one if needed so it captures the overarching issue.  Also look at closed PRs that might have fixed this issue.
 
+For Github issues, your boundaries are:
+
+1. Issues opened by the same user as you are authenticated as may be implemented right away
+2. Issues reported by other users require the user you are authenticated as to have made a "approved" comment (paraphrasings allowed, e.g. "LGTM", "Go ahead and implement", etc)
+3. If an issue is unclear, or indicates a user error, comment with clarification. Do not overindex on this, do what you can to help resolve it within your boundaries
+
 ## Step 3: create feature branches and PRs with fixes
 
 For each problem you find, create a feature branch that you use to open a PR on the main repository, PR description describes the problem you found and the evidence for it. Work in parallel as much as possible. Your priorities when fixing issues are to make sure that you find the root cause of the issue. Do not monkeypatch things. Find the root cause and implement a structural fix.
