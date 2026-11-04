@@ -11,7 +11,7 @@ Review recent work through three lenses: intent alignment, elegance, and bug det
 
 Before starting, check the environment variable `AGENT_AUTONOMY_MODE` via Bash (e.g. `echo $AGENT_AUTONOMY_MODE`) — compare case-insensitively. If it is set to `yolo`, this skill operates fully autonomously:
 
-- **Skip all user confirmations** - Do not ask the user to confirm intent (Step 3), do not ask which findings to address (Step 6)
+- **Skip all user confirmations** - Do not ask the user anything
 - **Infer intent silently** - State the inferred intent but do not ask for confirmation
 - **Apply all findings automatically** - After the assessment, proceed directly to applying all actionable suggestions without waiting for user input
 - **Still respect Early Exit rules** - If there are no changes or no findings, stop as normal
@@ -51,8 +51,6 @@ Before assessing anything, understand what the developer was trying to do:
    - Any related issue numbers or PR descriptions
 
 2. **State the inferred intent** - Write a clear 1-3 sentence summary of what you believe the developer intended to accomplish
-
-3. **Ask for confirmation** - Present the inferred intent and ask the user to confirm or correct it. Do NOT proceed with the assessment until the intent is confirmed. This grounds the entire reflection. **In YOLO mode or autonomous context, skip this step** — state the inferred intent and proceed directly.
 
 ## Step 4: Three-Lens Assessment
 
@@ -99,19 +97,18 @@ Only flag issues you have reasonable confidence are actual problems, not specula
 
 **If the assessment finds no actionable suggestions across all three lenses, report that the code looks solid and stop immediately.** Do not enter plan mode. Do not ask the user what to fix. Do not invent findings. A clean reflection is a good outcome — output a brief "all clear" summary as regular conversation text and end. This applies in all modes (regular, autonomous, and YOLO).
 
-## Step 6: Enter Plan Mode and Present Suggestions
+## Step 6: Present Suggestions
 
 **Only reach this step if there are actionable findings from Step 4.**
 
-Enter plan mode to structure the findings as a plan. The plan file becomes the reflection document.
+After completing the assessment, structure the output:
 
-After completing the assessment, structure the output in the plan file:
-
-### Reflection Summary
+```md
+# Reflection Summary
 
 Start with a brief overall assessment (2-3 sentences). Is the work solid? What stands out?
 
-### Findings
+## Findings
 
 Group findings by the three lenses. For each finding:
 
@@ -134,14 +131,13 @@ Group findings by the three lenses. For each finding:
 **Rationale**: [Why this matters, referencing the confirmed intent or style preferences]
 
 ---
+```
 
-### Next Steps
+## Step 7: Implement Findings worth addressing
 
-After presenting all findings as regular conversation text, end with a plain text prompt. Do NOT use a modal prompt or confirmation dialog here — it hides the findings the user needs to reference. Instead, end the message with:
+Look at the report from the other LLM. Judge what is worth addressing based on the conversation you have been having. Ignore nitpicks and edge cases. We are looking to prevent bugs, fix glaring oversights, or add highly relevant improvements. Also make sure not to trade minor improvements in performance of security for increases in complexity.
 
-> Reply with the finding numbers you'd like me to address (e.g. "1, 3"), "all" to apply everything, or "skip" to leave as-is.
-
-Wait for the user's reply before taking any action, unless this skill is running in an autonomous context where the user has explicitly asked for you to work autonomously, or YOLO mode is active. In either case, proceed to apply all findings without asking for confirmation.
+Based on your assesment above, implement fixes for the things that are worth addressing.
 
 ## Guidelines
 

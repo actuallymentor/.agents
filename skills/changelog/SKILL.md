@@ -13,7 +13,6 @@ If CHANGELOG.md does not exist, create it.
 
 Before starting, check the environment variable `AGENT_AUTONOMY_MODE` via Bash (e.g. `echo $AGENT_AUTONOMY_MODE`) — compare case-insensitively. If it is set to `yolo`, this skill operates fully autonomously:
 
-- **Skip Step 4** (user confirmation) — apply all updates without asking
 - **Make autonomous decisions** — do not ask the user at any point
 - **Still respect Early Exit rules** — if there are no changes, stop as normal
 
@@ -103,33 +102,15 @@ Rules:
 
 ### Documentation updates
 
-Check if any changes affect user-facing behavior. If so, identify what needs updating in `README.md`:
+Check if any changes affect user-facing behavior. If so, identify what needs updating in `README.md` and `llms.txt`:
 
 - New or changed CLI flags, commands, or arguments
 - New features a user would need to know about
 - Changed behavior that would surprise someone reading the old docs
 
-Keep README edits terse — document what changed, not prose. If no user-facing behavior changed, skip README updates.
+Keep edits terse — document what changed, not prose. If no user-facing behavior changed, skip updates.
 
-## Step 4: Present and Confirm
-
-**In YOLO mode, skip this step entirely** — apply all updates directly.
-
-Present the user with a summary of what will be written:
-
-1. **Changelog entry** — Show the drafted entry
-2. **Version bump** — Show current version → new version (and which files will be updated)
-3. **README changes** — Show what will be added/modified (if anything)
-
-Ask the user to confirm. Offer options:
-
-- Apply all updates
-- Let me adjust (user provides feedback)
-- Skip — no updates needed
-
-Wait for the user's reply before taking any action, unless this skill is running in an autonomous context or YOLO mode. In either case, proceed to apply all updates without asking.
-
-## Step 5: Apply Updates
+## Step 4: Apply Updates
 
 Apply the confirmed changes:
 

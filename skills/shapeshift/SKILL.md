@@ -9,6 +9,13 @@ You will review your current task and plans, and select the right model and effo
 
 Depending on when this skill is called, you have slightly different jobs.
 
+## YOLO Mode
+
+Before starting, check the environment variable `AGENT_AUTONOMY_MODE` via Bash (e.g. `echo $AGENT_AUTONOMY_MODE`) — compare case-insensitively. If it is set to `yolo`, this skill operates fully autonomously:
+
+- **Make autonomous decisions** — do not ask the user at any point
+- **Still respect Early Exit rules** — if there are no changes, stop as normal
+
 ## Your workflow
 
 Determine which of the options below is relevant to your current situation. It's important that you evaluate both your main thread, if you are going to use sub agents, to evaluate those one by one as well.
@@ -32,7 +39,7 @@ Evaluate whether the model and effort you are operating at is still appropriate.
 
 ## How to set model and effort level
 
-Boundary: run `babysit mode | grep -q container` to check if you are in a babysit container, if not, you are not able to set your own model/effort and this skill only applies to subagents you create
+Boundary: run `babysit mode | grep -q container` to check if you are in a babysit container, if not, you are not able to set your own model/effort and this skill only applies to subagents you create.
 
 If available, use the `babysit` cli:
 

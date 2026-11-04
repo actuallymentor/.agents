@@ -104,11 +104,8 @@ Exceptions: 1) if you only changed `.notes/` files or 2) the task was trivial, y
 4. **Run the `test` skill** — if the project has tests configured, run and handle relevant ones
 5. **Cleanup** - check if your work has left temporary or nonfunctional files. Also look at background shells and agents. Close/delete remnants
 6. **Commit** — if `echo $AGENT_AUTONOMY_MODE` is `yolo`, commit with a gitmoji message; otherwise suggest a commit command with message and ask for confirmation. Common [gitmoji](https://gitmoji.dev/): `✨ feature`, `🐛 bug`, `🔥 removal`, `📚 docs`, `♻️ refactor`, `🎨 style`, `✅ tests`
-7. **TL;DR:** - write a summary line in the format: I changed xyz in commits aaa, bbb, ccc.
-8. **Phone a friend** — after committing, offer to run the `phoneafriend` skill to get another LLM's perspective on your work. In YOLO mode, automatically run `phoneafriend` after every commit. Do not run `phoneafriend` if you are working only on a `.notes/` file.
-9. **Conditionally run the `updatehuman` skill** - Send a push notification to the human user if either 1) you need input from them or 2) you are done working and will go idle now
-
-> **Skills** are reusable workflows invoked by name. The invocation syntax varies by tool — Claude Code uses `/skill_name`, Codex uses `$skill_name`, and other tools may differ. When this document says "run the `reflect` skill", use whatever invocation method your tool provides.
+7. **Phone a friend** — after committing, offer to run the `phoneafriend` skill to get another LLM's perspective on your work. In YOLO mode, automatically run `phoneafriend` after every commit. Do not run `phoneafriend` if you are working only on a `.notes/` file.
+8. **Conditionally run the `updatehuman` skill** - Send a push notification to the human user if either 1) you need input from them or 2) you are done working and will go idle now
 
 ==============================
 
