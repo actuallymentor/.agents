@@ -25,6 +25,8 @@ Test the locally merged work with the relevant test suites, but also spend some 
 
 Merge the work into the primary branch the deploy the work to production autonomously. Do so safely and with minimal downtime. If you have to cause minor downtime, or interrupt user work, make a tradeoff analysis for when that makes sense. If cancelling and restarting user work is a feasible path, you are allowed to do so. So long as you do not cause users to lose money, you may decide autonomously. If you cancel user work, make sure you refund them.
 
+Make sure to close the issues that have been resolved by the merged pull requests.
+
 ## Step 5: monitor production
 
 For at least one hour, monitor production for errors. If you encounter errors fix them. If fixing them is not feasible, revert your work.

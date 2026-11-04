@@ -5,40 +5,49 @@ description: Prepare items that should be considered for refactoring
 
 # Prefactor Skill
 
-Prefactor uses subagents to analyse the codebase for refactoring opportunities.
+Prefactor uses subagents to analyse the codebase for refactoring opportunities. Your goal is to be ambitious, not just look as low-level aspects.
 
-Boundaries:
+## Scope
 
-- You may not create, change, or delete files in the codebase
+Determine what types and levels of analysis are relevant for this codebase. The list below is a non-exhaustive starting point:
 
-## Step 1: Generate findings
+1. Where can I add abstractions that will reduce the amount of code because we can recycle logic
+1. Where can I remove abstractions that add complexity for little to no gain
+1. What processes are overly complex right now and could be simplified by taking another approach?
+1. Where are we hamstrung by previous technical choices that are causing us trouble now?
+1. Where can we make a decision that eliminates many downstream choices and complexity?
 
-Do a cursory analysis of the codebase to figure out the complexity. Based on this you will set the reasoning levels of the subagents.
+## Boundaries
 
-Subagents are all requested to generate findings based on their personalities. They each follow the same workflow:
+- You may not commit, change, or delete files in the codebase
+- You are allowed to create temporary files, so long as you clean up after yourself
+- You are explicitly to steer away from nitpicks and low-leverage improvements
 
-1. Based on your personality and priorities, determine areas in the codebase that are likely to generate findings
-2. Analyse the code for findings, you have a high degree of latitude to determine findings, including running code, browsing the web, and so forth
-3. Think about mitigation paths for this finding, determind your recommendation, but keep in mind the alternatives
-4. Report your findings and recommendations
+## Workflow
+
+### Step 1: Generate findings
+
+In this phase you embark on multiple research projects, and spin up as many parallel subagents as relevant to do parallelised analysis to do so. For each research approach, use the agent personalities configured in your `AGENTS.md`.
+
+Once done, you take the findings of the subagents, and look at patterns in the results. Based on that you determine what are the highest leverage areas to look at improving. Based on the initial results, do a second round of research and consideration that is more focused.
 
 ## Step 2: High level presentation of findings
 
-Once the agents have reported, present the user with a high level overview of the findings. The format:
+Once you have found some approaches, present the user with a high level overview of the findings. The format:
 
 ```md
 
 Findings:
 
-#1 - P1 - brittle - authentication logic depends on a brittle service
+#1 - authentication logic depends on a brittle service
   fix: use a local alternative <package name>
   upside: stable if external service down
   downside: heavier system requirements
-#2 - P2 - simplify - recommendation algorithm is overly complex
+#2 - recommendation algorithm is overly complex
   fix: simplify recc algo
   upside: simpler code, est 40% faster
   downside: lose approx 5% accuracy
-#3 - P0 - security - SQL injection vuln in the contact form
+#3- SQL injection vulns
   fix: use parameterized queries
   upside: prevent SQL injection
   downside: requires external library
@@ -46,31 +55,6 @@ Findings:
 Which do you want me to explain or fix?
 
 ```
-
-- P0: urgent fix, poses an immediate issue that could cause failure in production (DoS, DoW, OOM, etc)
-- P1: important fix/optimisation, addressing this meaningfully improves the codebase, but is not urgent
-- P2: nice to have, this is a good idea, but not urgent or important
-
 ## Step 3: User interaction
 
-The user will ask for clarification or implementation. If the user asks for an explanation, your first response is in this format:
-
-```md
-Title: P{0-2} - brittle/simplify/security - {short description of the opportunity}
-
-Finding: ...
-Suggestions: ...
-
-Suggestion 1: ...
-
-Upside: ...
-Downside: ...
-Risks: ...
-Next steps: ...
-
-Suggestion 2: ...
-```
-
-## Subagent personalities
-
-Spin up a sub agens for every `.md` file in `~/.agents/personalities/`. Make sure that you pass those files to the agent so they know their personality, and then instruct them.
+Once you have presented the user with findings, the user will direct you as to how to proceed.

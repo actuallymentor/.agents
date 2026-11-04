@@ -13,7 +13,7 @@ Look at the folder you are in, see what you have access to the is relevant to fi
 
 - Deployments of this application that you can get the logs from through SSH
 - Diagnostics services like Sentry that capture application behaviour data
-- UX related tooling that show us how users use the app, something like Hotjar
+- UX related tooling that show us how users use the app, something like Posthog
 - Github issues opened by users or other LLM agents
 
 Make a list of these sources and how to access them.
@@ -39,6 +39,10 @@ Boundaries:
 1. If there are decisions about tradeoffs to be made, keep the PR in draft mode and leave a comment asking what we want to do. Give the options with upsides, downsides, and your recommendation
 
 ====
+
+Affordances:
+- You may spend up to $50 in infrastructure spend if needed
+- You may use local resources for testing, including docker containers (if you have docker sock access)
 
 Boundaries:
 
