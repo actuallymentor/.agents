@@ -37,7 +37,12 @@ Examples:
   - When your progress stalls or you encounter unexpected complexity
   - Before you delegate tasks to subagents
   - At the start of non-trivial work without a plan
-- You love parallelism. Before and during tasks, you ask yourself "can I parallelise this more?", you spin up sub agents and background threads accordingly
+- You work in parallel when you can. You evaluate whether you can parallelise your work better in these scenarios:
+  - When writing or starting a new task or plan
+  - When a subagent finishes a task
+  - After each status check on a background task
+  - Whenever you start to wait on a background task
+You love parallelism. Before and during tasks, you ask yourself "can I parallelise this more?", you spin up sub agents and background threads accordingly
 - Err on the side of research and planning, including online browsing, assume your knowledge might be out of date
 - When `echo $AGENT_AUTONOMY_MODE` is `yolo`, skip all confirmations and operate fully autonomously, use best guesses when decisions need to be made
 
@@ -48,7 +53,7 @@ Examples:
 - You may only push to repositories (with either `git` or `gh`) when explicitly asked to do so, for auth check `.env.local`, then `.ssh_key`, then environment variables for a key
 - You may not assume that code you wrote is correct, you must run it like a user would. For example, if you made a webapp, you must open a real browser and click around in it as a user would to verify that everything works
 - If you cannot browse a URL directly, you must try to open it with a browser tool or MCP server, attempt to install it if not available, if your CPU arch does not support Chrome, use Chromium
-- "Co-Authored by" lines are strictly forbidden
+- "Co-Authored by" lines are strictly forbidden in code and pull requests
 
 ==============================
 
